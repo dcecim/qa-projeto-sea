@@ -1,35 +1,41 @@
-# Projeto de Testes Automatizados - SEA Tecnologia
+# Projeto de QA Automatizado - SEA Tecnologia
 
-Este projeto contém testes automatizados para a aplicação web da SEA Tecnologia, focando na qualidade e conformidade com os requisitos e protótipos fornecidos. [       Requisitos mínimos e protótipo funcional
-📄 A URL da aplicação é:  http://analista-teste.seatecnologia.com.br/;  
-Os requisitos disponibilizados pela organização são apenas esses:
-Referências de Design e Funcionalidades:
-- Conformidade com o Protótipo: Verifique a aplicação em comparação com o protótipo disponível em https://tinyurl.com/yl58hs4m. É crucial que a aplicação reflita o design e a estrutura propostos no protótipo.
-Elementos de Design a Serem Avaliados:
--  Fonte: Verifique se a fonte usada na aplicação corresponde à especificada no protótipo.
--  Cores: As cores da aplicação devem ser idênticas às do protótipo.
--  Itens: Todos os itens (botões, campos de formulário, menus, etc.) devem estar presentes conforme o design proposto.
-Funcionalidades e Comportamentos a Serem Testados:
-- Formulário: Avalie as validações implementadas no formulário, incluindo a verificação do CPF e da data, bem como as funcionalidades para adicionar EPI (Equipamento de Proteção Individual) e atividades.
-- Persistência de Dados: Certifique-se de que as informações dos funcionários sejam corretamente salvas (persistidas) no sistema.
-- Recuperação de Dados: Teste se as informações de um funcionário podem ser recuperadas sem erros.
-- Edição e Exclusão: Verifique a funcionalidade que permite editar e excluir registros de funcionários, geralmente acessível através de um menu de opções (indicado por elipses (...)).
-- Navegação: Teste os links para assegurar que eles conduzam às etapas e itens de menu corretos. Todos os links devem levar ao componente "Em breve", indicando funcionalidades que serão implementadas no futuro.
-- Compatibilidade com Navegadores: A aplicação deve funcionar corretamente nos principais navegadores web, garantindo a acessibilidade para uma ampla gama de usuários.
-]
-
-## Visão Geral
-
-O objetivo principal é garantir a validação de dados de entrada, a funcionalidade do sistema e a conformidade visual, utilizando Python com Playwright para automação de testes E2E. [cite: 1, 6, 10, 14]
+Este repositório contém um projeto estruturado de testes para a aplicação disponível em http://analista-teste.seatecnologia.com.br/, seguindo as diretrizes da ISO/IEC/IEEE 29119 e as boas práticas do ISTQB.
 
 ## Estrutura do Projeto
 
-* `docs/`: Contém a documentação do projeto, incluindo o plano de testes e os casos de teste. [cite: 7]
-* `tests/`: Armazena os scripts de testes automatizados. [cite: 7]
-* `utils/`: Funções auxiliares e helpers. [cite: 7]
-* `.github/workflows/`: (Opcional) Configurações para Integração Contínua (CI/CD) com GitHub Actions. [cite: 7]
-* `requirements.txt`: Lista de dependências do projeto. [cite: 7]
-* `README.md`: Este arquivo. [cite: 7]
+```
+/qa-projeto-sea/
+├── docs/
+│   ├── plano-de-testes.md
+│   └── casos-de-teste.md
+├── tests/
+│   ├── test_conformidade.py
+│   └── test_validacao.py
+├── utils/
+│   └── helpers.py
+├── requirements.txt
+└── README.md
+```
+
+## Sobre o Projeto
+
+Este projeto foi desenvolvido como parte de um desafio de teste para avaliar a aplicação web da SEA Tecnologia. O objetivo é verificar a conformidade com o protótipo, validar as funcionalidades do formulário e garantir a qualidade geral da aplicação.
+
+### Escopo do Teste
+
+- **Testes Manuais**: Documentação detalhada de casos de teste para todas as funcionalidades
+- **Testes Automatizados**: Scripts para validação de nome/CPF e conformidade com o protótipo
+
+### Requisitos da Aplicação
+
+A aplicação deve ser testada considerando:
+
+1. **Conformidade com o Protótipo**: Verificação de design, cores, fontes e elementos conforme o protótipo disponível em https://tinyurl.com/yl58hs4m
+2. **Validação de Formulários**: Verificação de campos como nome, CPF e data
+3. **Funcionalidades CRUD**: Persistência, recuperação, edição e exclusão de registros
+4. **Navegação**: Verificação de links e fluxos de navegação
+5. **Compatibilidade**: Funcionamento em diferentes navegadores
 
 ## Configuração do Ambiente
 
@@ -58,9 +64,28 @@ O objetivo principal é garantir a validação de dados de entrada, a funcionali
     playwright install
     ```
 
-## Executando os Testes
-
-Para executar todos os testes:
+## Execução dos Testes Automatizados
 
 ```bash
-pytest
+pytest tests/
+```
+
+Para gerar relatório HTML:
+```bash
+pytest tests/ --html=report.html
+```
+
+## Documentação
+
+- [Plano de Testes](docs/plano-de-testes.md): Estratégia, escopo e abordagem de testes
+- [Casos de Teste](docs/casos-de-teste.md): Casos de teste detalhados para execução manual
+
+## Tecnologias Utilizadas
+
+- **Playwright**: Framework para automação de testes em navegadores
+- **pytest**: Framework de testes para Python
+- **Python**: Linguagem de programação principal
+
+## Autor
+
+[`Divino Cecim da Silva`]

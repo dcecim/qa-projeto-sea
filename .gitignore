@@ -23,4 +23,4 @@ allure-report/
 allure-results/
 
 # HTML reports
-*.html
+# *.html

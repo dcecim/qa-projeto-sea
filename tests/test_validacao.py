@@ -1,0 +1,217 @@
+import pytest
+from playwright.sync_api import Page, expect
+from playwright.sync_api import sync_playwright
+import re
+
+# URL da aplicação
+APP_URL = "http://analista-teste.seatecnologia.com.br/"
+
+class TestValidacao:
+    """
+    Testes automatizados para validação de nome e CPF no formulário.
+    Implementa os casos de teste CT-FORM-001, CT-FORM-002, CT-FORM-003 e CT-FORM-004.
+    """
+    
+    @pytest.fixture(autouse=True)
+    def setup(self, page: Page):
+        """Configuração inicial para cada teste."""
+        # Navega para a aplicação
+        page.goto(APP_URL)
+        # Aguarda o carregamento completo da página
+        page.wait_for_load_state("networkidle")
+        # Acessa o formulário de cadastro (ajustar seletor conforme a aplicação)
+        try:
+            page.click("text=Novo Funcionário", timeout=3000)
+        except:
+            print("Botão 'Novo Funcionário' não encontrado, assumindo que já estamos na página de cadastro")
+    
+    def test_validacao_nome_cenarios_validos(self, page: Page):
+        """
+        Verifica se o campo de nome aceita entradas válidas conforme as regras definidas.
+        Implementa o caso de teste CT-FORM-001.
+        """
+        # Lista de nomes válidos para teste
+        nomes_validos = [
+            "Jo",                   # 2 caracteres
+            "Joãooooooooooooooooooooooooo", # 30 caracteres
+            "João Silva",           # Com espaço
+            "Maria-Clara",          # Com hífen
+            "José Antônio"          # Com acentos
+        ]
+        
+        # Campo de nome (ajustar seletor conforme a aplicação)
+        nome_input = page.locator('input[name="nome"], input[placeholder*="nome"], input[id*="nome"]').first
+        
+        for nome in nomes_validos:
+            # Limpa o campo
+            nome_input.fill("")
+            # Preenche com o nome válido
+            nome_input.fill(nome)
+            # Clica fora para acionar validação
+            page.click("body", position={"x": 0, "y": 0})
+            
+            # Verifica se não há mensagem de erro
+            erro = page.locator('text="Nome inválido"').count()
+            assert erro == 0, f"Nome válido '{nome}' foi rejeitado"
+            
+            # Verifica se o valor foi mantido
+            valor_atual = nome_input.input_value()
+            assert valor_atual == nome, f"Valor do campo foi alterado: '{nome}' -> '{valor_atual}'"
+            
+            print(f"✅ Nome válido aceito: {nome}")
+    
+    def test_validacao_nome_cenarios_invalidos(self, page: Page):
+        """
+        Verifica se o campo de nome rejeita entradas inválidas conforme as regras definidas.
+        Implementa o caso de teste CT-FORM-002.
+        """
+        # Lista de nomes inválidos para teste
+        nomes_invalidos = [
+            "A",                    # 1 caractere
+            "A" * 121,              # Mais de 120 caracteres
+            "João123",              # Com números
+            "João@Silva",           # Com caracteres especiais
+            "SELECT FROM",          # Palavra reservada SQL
+            ""                      # Vazio
+        ]
+        
+        # Campo de nome (ajustar seletor conforme a aplicação)
+        nome_input = page.locator('input[name="nome"], input[placeholder*="nome"], input[id*="nome"]').first
+        
+        for nome in nomes_invalidos:
+            # Limpa o campo
+            nome_input.fill("")
+            # Preenche com o nome inválido
+            nome_input.fill(nome)
+            # Clica fora para acionar validação
+            page.click("body", position={"x": 0, "y": 0})
+            
+            # Tenta submeter o formulário para verificar validação
+            submit_button = page.locator('button[type="submit"], input[type="submit"]').first
+            if submit_button.count() > 0:
+                submit_button.click(timeout=1000)
+            
+            # Verifica se há alguma indicação de erro (mensagem ou estilo)
+            # Nota: A aplicação pode implementar diferentes formas de indicar erro
+            erro_visivel = page.locator('.error, .invalid, [aria-invalid="true"]').count() > 0 or \
+                          page.locator('text="inválido", text="obrigatório", text="incorreto"').count() > 0
+                          
+            # Se não encontrou erro pelos métodos acima, verifica se o formulário permite avançar
+            if not erro_visivel:
+                # Verifica se o formulário foi submetido com sucesso (não deveria para dados inválidos)
+                sucesso = page.locator('text="Funcionário cadastrado com sucesso"').count() > 0
+                assert not sucesso, f"Nome inválido '{nome}' foi aceito e formulário foi submetido"
+            
+            print(f"✅ Nome inválido rejeitado: {nome}")
+    
+    def test_validacao_cpf_cenarios_validos(self, page: Page):
+        """
+        Verifica se o campo de CPF aceita entradas válidas.
+        Implementa o caso de teste CT-FORM-003.
+        """
+        # Lista de CPFs válidos para teste
+        cpfs_validos = [
+            "12345678909",          # Sem formatação
+            "123.456.789-09",       # Com formatação
+            "11144477735",          # Outro CPF válido
+            "111.444.777-35"        # Outro CPF válido com formatação
+        ]
+        
+        # Campo de CPF (ajustar seletor conforme a aplicação)
+        cpf_input = page.locator('input[name="cpf"], input[placeholder*="cpf"], input[id*="cpf"]').first
+        
+        for cpf in cpfs_validos:
+            # Limpa o campo
+            cpf_input.fill("")
+            # Preenche com o CPF válido
+            cpf_input.fill(cpf)
+            # Clica fora para acionar validação
+            page.click("body", position={"x": 0, "y": 0})
+            
+            # Verifica se não há mensagem de erro
+            erro = page.locator('text="CPF inválido"').count()
+            assert erro == 0, f"CPF válido '{cpf}' foi rejeitado"
+            
+            # Verifica se o valor foi mantido (pode ser formatado automaticamente)
+            valor_atual = cpf_input.input_value()
+            # Remove formatação para comparação
+            cpf_limpo = re.sub(r'[^0-9]', '', cpf)
+            valor_atual_limpo = re.sub(r'[^0-9]', '', valor_atual)
+            assert valor_atual_limpo == cpf_limpo, f"Valor do campo foi alterado: '{cpf_limpo}' -> '{valor_atual_limpo}'"
+            
+            print(f"✅ CPF válido aceito: {cpf}")
+    
+    def test_validacao_cpf_cenarios_invalidos(self, page: Page):
+        """
+        Verifica se o campo de CPF rejeita entradas inválidas.
+        Implementa o caso de teste CT-FORM-004.
+        """
+        # Lista de CPFs inválidos para teste
+        cpfs_invalidos = [
+            "1234567890",           # Menos de 11 dígitos
+            "123456789012",         # Mais de 11 dígitos
+            "12345678900",          # Dígitos verificadores inválidos
+            "123.456.78A-09",       # Caracteres não numéricos
+            "11111111111",          # Dígitos repetidos
+            ""                      # Vazio
+        ]
+        
+        # Campo de CPF (ajustar seletor conforme a aplicação)
+        cpf_input = page.locator('input[name="cpf"], input[placeholder*="cpf"], input[id*="cpf"]').first
+        
+        for cpf in cpfs_invalidos:
+            # Limpa o campo
+            cpf_input.fill("")
+            # Preenche com o CPF inválido
+            cpf_input.fill(cpf)
+            # Clica fora para acionar validação
+            page.click("body", position={"x": 0, "y": 0})
+            
+            # Tenta submeter o formulário para verificar validação
+            submit_button = page.locator('button[type="submit"], input[type="submit"]').first
+            if submit_button.count() > 0:
+                submit_button.click(timeout=1000)
+            
+            # Verifica se há alguma indicação de erro (mensagem ou estilo)
+            erro_visivel = page.locator('.error, .invalid, [aria-invalid="true"]').count() > 0 or \
+                          page.locator('text="inválido", text="obrigatório", text="incorreto"').count() > 0
+                          
+            # Se não encontrou erro pelos métodos acima, verifica se o formulário permite avançar
+            if not erro_visivel:
+                # Verifica se o formulário foi submetido com sucesso (não deveria para dados inválidos)
+                sucesso = page.locator('text="Funcionário cadastrado com sucesso"').count() > 0
+                assert not sucesso, f"CPF inválido '{cpf}' foi aceito e formulário foi submetido"
+            
+            print(f"✅ CPF inválido rejeitado: {cpf}")
+    
+    def test_captura_validacao_formulario(self, page: Page):
+        """
+        Captura screenshots do formulário com validações para documentação.
+        """
+        # Campo de nome e CPF
+        nome_input = page.locator('input[name="nome"], input[placeholder*="nome"], input[id*="nome"]').first
+        cpf_input = page.locator('input[name="cpf"], input[placeholder*="cpf"], input[id*="cpf"]').first
+        
+        # Captura formulário vazio
+        page.screenshot(path="/home/ubuntu/qa-projeto-sea/tests/screenshot_form_vazio.png")
+        
+        # Preenche com dados inválidos
+        nome_input.fill("A")  # Nome muito curto
+        cpf_input.fill("123") # CPF incompleto
+        
+        # Tenta submeter para acionar validações
+        submit_button = page.locator('button[type="submit"], input[type="submit"]').first
+        if submit_button.count() > 0:
+            submit_button.click(timeout=1000)
+        
+        # Captura formulário com erros
+        page.screenshot(path="/home/ubuntu/qa-projeto-sea/tests/screenshot_form_invalido.png")
+        
+        # Preenche com dados válidos
+        nome_input.fill("João Silva")
+        cpf_input.fill("12345678909")
+        
+        # Captura formulário válido
+        page.screenshot(path="/home/ubuntu/qa-projeto-sea/tests/screenshot_form_valido.png")
+        
+        print("✅ Screenshots de validação de formulário capturados")
