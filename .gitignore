@@ -1,0 +1,26 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+
+# Virtual environment
+venv/
+.venv/
+
+# IDE-specific files
+.idea/
+.vscode/
+
+# Playwright test results
+test-results/
+
+# Pytest cache
+.pytest_cache/
+
+# Allure reports
+allure-report/
+allure-results/
+
+# HTML reports
+*.html
