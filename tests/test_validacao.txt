@@ -21,7 +21,7 @@ class TestValidacao:
         page.wait_for_load_state("networkidle")
         # Acessa o formulário de cadastro (ajustar seletor conforme a aplicação)
         try:
-            page.click("text=Novo Funcionário", timeout=3000)
+            page.click("text=+ Adicionar Funcionário", timeout=3000)
         except:
             print("Botão 'Novo Funcionário' não encontrado, assumindo que já estamos na página de cadastro")
     
@@ -193,7 +193,7 @@ class TestValidacao:
         cpf_input = page.locator('input[name="cpf"], input[placeholder*="cpf"], input[id*="cpf"]').first
         
         # Captura formulário vazio
-        page.screenshot(path="/home/ubuntu/qa-projeto-sea/tests/screenshot_form_vazio.png")
+        page.screenshot(path="C:/Temp/qa-projeto-sea/tests/screenshots/screenshot_form_vazio.png")
         
         # Preenche com dados inválidos
         nome_input.fill("A")  # Nome muito curto
@@ -205,13 +205,13 @@ class TestValidacao:
             submit_button.click(timeout=1000)
         
         # Captura formulário com erros
-        page.screenshot(path="/home/ubuntu/qa-projeto-sea/tests/screenshot_form_invalido.png")
+        page.screenshot(path="C:/Temp/qa-projeto-sea/tests/screenshots/screenshot_form_invalido.png")
         
         # Preenche com dados válidos
         nome_input.fill("João Silva")
         cpf_input.fill("12345678909")
         
         # Captura formulário válido
-        page.screenshot(path="/home/ubuntu/qa-projeto-sea/tests/screenshot_form_valido.png")
+        page.screenshot(path="C:/Temp/qa-projeto-sea/tests/screenshots/screenshot_form_valido.png")
         
         print("✅ Screenshots de validação de formulário capturados")

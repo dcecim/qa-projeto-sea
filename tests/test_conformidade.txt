@@ -1,0 +1,92 @@
+import os
+import pytest
+from playwright.sync_api import Page, sync_playwright
+
+# URL da aplicação
+APP_URL = "http://analista-teste.seatecnologia.com.br/"
+
+# Diretório para salvar screenshots
+SCREENSHOTS_DIR = "C:/Temp/qa-projeto-sea/tests/screenshots/"
+
+# Certifique-se de que o diretório para screenshots existe
+os.makedirs(SCREENSHOTS_DIR, exist_ok=True)
+
+class TestConformidade:
+    """
+    Testes automatizados para verificar a conformidade da aplicação com o protótipo.
+    """
+
+    @pytest.fixture(autouse=True)
+    def setup(self, page: Page):
+        """Configuração inicial para cada teste."""
+        page.goto(APP_URL)
+        page.wait_for_load_state("networkidle")
+
+    def take_screenshot(self, page: Page, step_name: str):
+        """
+        Captura uma screenshot da página atual.
+        """
+        screenshot_path = os.path.join(SCREENSHOTS_DIR, f"{step_name}.png")
+        page.screenshot(path=screenshot_path)
+        print(f"📸 Screenshot capturada: {screenshot_path}")
+
+    def test_verificacao_fonte(self, page: Page):
+        """
+        Verifica se a fonte utilizada na aplicação corresponde à especificada no protótipo.
+        """
+        self.take_screenshot(page, "antes_verificacao_fonte")
+        font_family = page.evaluate("""() => {
+            const bodyStyle = window.getComputedStyle(document.body);
+            return bodyStyle.fontFamily;
+        }""")
+        assert "Roboto" in font_family or "Arial" in font_family, f"Fonte incorreta: {font_family}"
+        self.take_screenshot(page, "apos_verificacao_fonte")
+        print("✅ Fonte verificada com sucesso.")
+
+    def test_verificacao_cores(self, page: Page):
+        """
+        Verifica se as cores dos elementos principais são idênticas às do protótipo.
+        """
+        self.take_screenshot(page, "antes_verificacao_cores")
+        botao_adicionar = page.locator(".c-kUQtTK")
+        cor_botao = botao_adicionar.evaluate("el => window.getComputedStyle(el).backgroundColor")
+        print(f"Cor do botão '+ Adicionar Funcionário': {cor_botao}")
+        assert cor_botao == "rgb(0, 123, 255)", f"Cor do botão '+ Adicionar Funcionário' incorreta: {cor_botao}"
+        self.take_screenshot(page, "apos_verificacao_cores")
+        print("✅ Cores verificadas com sucesso.")
+
+    def test_presenca_itens_design(self, page: Page):
+        """
+        Verifica a presença de todos os itens conforme o design proposto.
+        """
+        self.take_screenshot(page, "antes_verificacao_itens_design")
+        botoes = {
+            "+ Adicionar Funcionário": ".c-kUQtTK",
+            "Ver apenas ativos": ".isActive",
+            "Limpar filtros": ".clear",
+            "Próximo passo": ".c-iuBfvZ"
+        }
+
+        for texto, seletor in botoes.items():
+            botao = page.locator(seletor)
+            is_visible = botao.is_visible()
+            self.take_screenshot(page, f"verificacao_visibilidade_{texto.replace(' ', '_')}")
+            assert is_visible, f"Botão '{texto}' não está visível."
+            print(f"✅ Botão '{texto}' encontrado e visível.")
+
+        campos_formulario = [
+            'input[name="nome"]',
+            'input[name="cpf"]',
+            'input[name="rg"]',
+            'select[name="cargo"]',
+            'input[name="epi"]'
+        ]
+
+        for campo in campos_formulario:
+            elemento = page.locator(campo)
+            self.take_screenshot(page, f"verificacao_visibilidade_{campo.replace('[', '').replace(']', '').replace('=', '_')}")
+            assert elemento.is_visible(), f"Campo '{campo}' não está visível."
+            print(f"✅ Campo '{campo}' encontrado e visível.")
+
+        self.take_screenshot(page, "apos_verificacao_itens_design")
+        print("✅ Todos os itens de design estão presentes.")
