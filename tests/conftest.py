@@ -1,7 +1,7 @@
 import pytest
 from playwright.sync_api import sync_playwright, Page, Browser, BrowserContext
 import os
-import datetime # Para timestamps nas screenshots de falha do conftest
+import datetime # Para timestamps
 
 # URL da aplicação - DEFINIDA AQUI
 APP_URL = "http://analista-teste.seatecnologia.com.br/"
@@ -9,7 +9,7 @@ APP_URL = "http://analista-teste.seatecnologia.com.br/"
 # Variável global para armazenar dados de empregados criados para limpeza.
 pytest.global_data_for_cleanup = []
 
-# --- Fixtures do Playwright (sem alteração) ---
+# --- Fixtures do Playwright ---
 @pytest.fixture(scope="class")
 def browser_class(request):
     with sync_playwright() as p:
@@ -36,14 +36,14 @@ def browser_context_args(browser_context_args):
         "viewport": {"width": 1920, "height": 1080},
     }
 
-# --- FUNÇÃO DE LIMPEZA (já movida para conftest.py) ---
+# --- FUNÇÃO DE LIMPEZA (MOVIDA PARA CONFTEST.PY) ---
 def limpar_cadastro_conftest_impl(page_cleanup: Page, dados_empregado: dict):
     nome_empregado = dados_empregado["nome"]
     cpf_empregado = dados_empregado["cpf"]
 
     print(f"INFO: [LIMPEZA NO CONFTEST] Tentando limpar o cadastro de '{nome_empregado}' (CPF: {cpf_empregado})...")
     try:
-        page_cleanup.goto(APP_URL) # Usa o APP_URL definido no conftest
+        page_cleanup.goto(APP_URL) 
         page_cleanup.wait_for_load_state("networkidle")
         
         empregado_locator_unico = page_cleanup.locator(
@@ -66,16 +66,15 @@ def limpar_cadastro_conftest_impl(page_cleanup: Page, dados_empregado: dict):
     except Exception as e:
         print(f"AVISO: [LIMPEZA NO CONFTEST] Falha ao excluir o cadastro '{nome_empregado}' (CPF: {cpf_empregado}): {e}.")
         # Opcional: tirar screenshot da falha de limpeza
-        # base_screenshots_dir_cleanup = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tests", "screenshots") # Assume conftest está na raiz
-        # if not os.path.exists(base_screenshots_dir_cleanup):
-        #     os.makedirs(base_screenshots_dir_cleanup)
-        # timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-        # page_cleanup.screenshot(path=os.path.join(base_screenshots_dir_cleanup, f"FALHA_LIMPEZA_{nome_empregado.replace(' ', '_')}_{timestamp}.png"))
-
+        #screenshots_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tests", "screenshots") # Assume conftest está na raiz
+        #if not os.path.exists(screenshots_dir):
+        #    os.makedirs(screenshots_dir)
+        #timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        #page_cleanup.screenshot(path=os.path.join(screenshots_dir, f"FALHA_LIMPEZA_{nome_empregado.replace(' ', '_')}_{timestamp}.png"))
 
 # --- FIXTURE DE LIMPEZA PÓS-SESSÃO ---
 @pytest.fixture(scope="session", autouse=True)
-def cleanup_after_all_tests(request): # request não é necessário aqui se não for usado
+def cleanup_after_all_tests(request):
     yield 
     print("\n--- Iniciando limpeza de dados de teste (conftest.py) ---")
     if hasattr(pytest, 'global_data_for_cleanup') and pytest.global_data_for_cleanup:
@@ -84,7 +83,7 @@ def cleanup_after_all_tests(request): # request não é necessário aqui se não
             page_cleanup = browser_cleanup.new_page()
             
             for dados_empregado in pytest.global_data_for_cleanup:
-                limpar_cadastro_conftest_impl(page_cleanup, dados_empregado)
+                limpar_cadastro_conftest_impl(page_cleanup, dados_empregado) # Chama a função local
             
             browser_cleanup.close()
     else:
@@ -98,50 +97,38 @@ def pytest_runtest_makereport(item, call):
     rep = outcome.get_result()
     setattr(item, "rep_" + rep.when, rep)
     
-    # Adiciona screenshot ao extra do HTML report em caso de falha na fase 'call'
-    # E também para screenshots de etapas tiradas com a função take_screenshot
-    if rep.when == "call": # Processar apenas para a fase de 'call' do teste
-        # Screenshots tiradas explicitamente com take_screenshot e retornadas
-        # geralmente são adicionadas ao 'item' pelo próprio teste.
-        # Aqui, focamos em adicionar uma screenshot *automática* na falha.
-        if rep.failed:
-            try:
-                page = item.funcargs.get("page") 
-                if page:
-                    # Caminho base para os screenshots DENTRO de tests/screenshots
-                    # item.fspath é um objeto Path do Pytest
-                    # O diretório do arquivo de teste é item.fspath.dirpath()
-                    # Ou os.path.dirname(str(item.fspath))
-                    screenshots_dir = os.path.join(str(item.fspath.dirpath()), "screenshots")
-                    if not os.path.exists(screenshots_dir):
-                        os.makedirs(screenshots_dir)
-                    
-                    test_name_cleaned = "".join(c if c.isalnum() else "_" for c in item.name)
-                    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-                    screenshot_filename = f"FALHA_{test_name_cleaned}_{timestamp}.png"
-                    screenshot_path_abs = os.path.join(screenshots_dir, screenshot_filename)
-                    page.screenshot(path=screenshot_path_abs)
-                    print(f"📸 Screenshot AUTOMÁTICA em falha salvo: {screenshot_path_abs}")
-                    
-                    # Adiciona ao html report
-                    if hasattr(item, 'extras'):
-                        # Para --self-contained-html, o ideal é embutir como base64
-                        # Mas pytest_html.extras.image(path) tenta linkar.
-                        # Para embutir, o conteúdo da imagem precisa ser passado.
-                        # pytest_html.extras.image(pytest_html.extras.image_base64(screenshot_path_abs))
-                        # Ou simplesmente linkar, e garantir que o caminho é acessível pelo report.
-                        item.extras.append(pytest_html.extras.image(screenshot_path_abs, name="Screenshot Automático em Falha"))
-            except Exception as e:
-                print(f"AVISO: Não foi possível capturar screenshot automática em falha para {item.name}: {e}")
+    # Adiciona screenshot AUTOMÁTICA ao extra do HTML report em caso de falha na fase 'call'
+    if rep.when == "call" and rep.failed:
+        try:
+            page = item.funcargs.get("page") 
+            if page and pytest_html: # Verifica se pytest_html foi importado
+                # Caminho base para os screenshots DENTRO de tests/screenshots
+                base_screenshots_dir = os.path.join(str(item.fspath.dirpath()), "screenshots")
+                if not os.path.exists(base_screenshots_dir):
+                    os.makedirs(base_screenshots_dir)
+                
+                test_name_cleaned = "".join(c if c.isalnum() else "_" for c in item.name)
+                timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+                screenshot_filename = f"FALHA_{test_name_cleaned}_{timestamp}.png"
+                screenshot_path_abs = os.path.join(base_screenshots_dir, screenshot_filename)
+                page.screenshot(path=screenshot_path_abs)
+                print(f"📸 Screenshot AUTOMÁTICA em falha salva: {screenshot_path_abs}")
+                
+                # Adiciona ao html report
+                if hasattr(item, 'extras'):
+                    item.extras.append(pytest_html.extras.image(screenshot_path_abs, name="Screenshot Automático em Falha"))
+        except Exception as e:
+            print(f"AVISO: Não foi possível capturar screenshot automática em falha para {item.name}: {e}")
 
 def pytest_configure(config):
     # Caminho para a pasta screenshots dentro de tests, relativo à raiz do projeto
+    # config.rootpath é um objeto Path, converter para string
     screenshots_dir = os.path.join(str(config.rootpath), "tests", "screenshots") 
     os.makedirs(screenshots_dir, exist_ok=True)
-    config.addinivalue_line("markers", "screenshots_on_failure: mark test to take screenshots on failure")
+    # Removido addinivalue_line para evitar dependência de um marcador não usado
     
     print("\nIniciando testes automatizados para o projeto SEA Tecnologia")
-    print(f"URL da aplicação: {APP_URL}") # Agora APP_URL está definido neste arquivo
+    print(f"URL da aplicação: {APP_URL}") 
     print("URL do protótipo: https://tinyurl.com/yl58hs4m")
 
 def pytest_html_report_title(report):
@@ -154,7 +141,8 @@ def pytest_sessionfinish(session, exitstatus):
     num_passed = 0
     
     for item in session.items:
-        if hasattr(item, 'rep_call') and item.rep_call.when == 'call': # Considerar apenas a fase de 'call'
+        # Verifica se o item tem o atributo rep_call (criado pelo hook pytest_runtest_makereport)
+        if hasattr(item, 'rep_call') and item.rep_call.when == 'call': 
             if item.rep_call.failed:
                 num_failed += 1
             elif item.rep_call.passed:
@@ -171,10 +159,12 @@ def pytest_sessionfinish(session, exitstatus):
     else:
         print(f"\n⚠️ {num_failed} teste(s) falharam. Verifique os logs e o relatório HTML para mais detalhes.")
     
+    # Usa str(session.config.rootpath) para o caminho das evidências
     screenshots_dir_path = os.path.join(str(session.config.rootpath), "tests", "screenshots")
     print(f"\nEvidências de teste (screenshots) disponíveis em: {screenshots_dir_path}")
     print("=======================================")
 
+# Importe pytest_html no início do arquivo se for usar extras
 try:
     import pytest_html.extras
 except ImportError:
