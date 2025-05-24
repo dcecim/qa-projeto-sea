@@ -72,7 +72,8 @@ pytest tests/
 
 Para gerar relatório HTML:
 ```bash
-pytest tests/ --html=report.html
+pytest tests/ --html=report.html # ou
+pytest tests/ --headed --html=report.html --self-contained-html
 ```
 
 ## Documentação
