@@ -11,9 +11,9 @@ BASE_SCREENSHOTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 
 
 # Dados de teste para o fluxo 
 TEST_EMPLOYEE_DATA = {
-    "nome": "Carlos Testador QA", # Nome bem único
-    "cpf": "777.888.999-00",      # CPF único e válido
-    "rg": "12.345.678-9",
+    "nome": "Carlos Testador Numro 1", # Nome bem único
+    "cpf": "001.888.999-00",      # CPF único e válido
+    "rg": "33.345.678-9",
     "cargo": "Cargo 02", 
     "data_nascimento": "1985-07-15",
     "sexo": "masculino",

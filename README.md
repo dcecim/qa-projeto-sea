@@ -72,7 +72,7 @@ pytest tests/
 
 Para gerar relatório HTML:
 ```bash
-pytest tests/ --html=report.html # ou
+pytest --html=report.html --css=assets/custom_style.css # ou
 pytest tests/ --headed --html=report.html --self-contained-html
 ```
 

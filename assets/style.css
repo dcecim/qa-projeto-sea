@@ -317,3 +317,90 @@ div.media {
 .filter__label {
   margin-right: 10px;
 }
+
+/******************************
+ * CUSTOM CSS
+ * assets\custom_style.css
+ ******************************/
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 20px;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+h1 {
+    color: #2c3e50;
+    border-bottom: 2px solid #1abc9c;
+    padding-bottom: 10px;
+}
+
+/* Estilizar a seção de resumo */
+div.summary {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+table#results-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#results-table th {
+    background-color: #1abc9c;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+#results-table td {
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+}
+
+#results-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Classe para o contêiner do gráfico */
+.chart-container {
+    width: 50%; /* Ajuste conforme necessário */
+    max-width: 400px;
+    height: auto; /* Mantém a proporção */
+    margin: 20px auto; /* Centraliza o gráfico */
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Melhora o layout das estatísticas se você adicionar divs personalizadas */
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-item h3 {
+    margin: 0 0 5px 0;
+    color: #495057;
+}
+
+.stat-item p {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #1abc9c;
+}

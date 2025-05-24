@@ -2,333 +2,12 @@
 <html>
   <head>
     <meta charset="utf-8"/>
-    <title id="head-title">Relatório de Testes Automatizados - SEA Tecnologia</title>
-      <style type="text/css">body {
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 12px;
-  /* do not increase min-width as some may use split screens */
-  min-width: 800px;
-  color: #999;
-}
-
-h1 {
-  font-size: 24px;
-  color: black;
-}
-
-h2 {
-  font-size: 16px;
-  color: black;
-}
-
-p {
-  color: black;
-}
-
-a {
-  color: #999;
-}
-
-table {
-  border-collapse: collapse;
-}
-
-/******************************
- * SUMMARY INFORMATION
- ******************************/
-#environment td {
-  padding: 5px;
-  border: 1px solid #e6e6e6;
-  vertical-align: top;
-}
-#environment tr:nth-child(odd) {
-  background-color: #f6f6f6;
-}
-#environment ul {
-  margin: 0;
-  padding: 0 20px;
-}
-
-/******************************
- * TEST RESULT COLORS
- ******************************/
-span.passed,
-.passed .col-result {
-  color: green;
-}
-
-span.skipped,
-span.xfailed,
-span.rerun,
-.skipped .col-result,
-.xfailed .col-result,
-.rerun .col-result {
-  color: orange;
-}
-
-span.error,
-span.failed,
-span.xpassed,
-.error .col-result,
-.failed .col-result,
-.xpassed .col-result {
-  color: red;
-}
-
-.col-links__extra {
-  margin-right: 3px;
-}
-
-/******************************
- * RESULTS TABLE
- *
- * 1. Table Layout
- * 2. Extra
- * 3. Sorting items
- *
- ******************************/
-/*------------------
- * 1. Table Layout
- *------------------*/
-#results-table {
-  border: 1px solid #e6e6e6;
-  color: #999;
-  font-size: 12px;
-  width: 100%;
-}
-#results-table th,
-#results-table td {
-  padding: 5px;
-  border: 1px solid #e6e6e6;
-  text-align: left;
-}
-#results-table th {
-  font-weight: bold;
-}
-
-/*------------------
- * 2. Extra
- *------------------*/
-.logwrapper {
-  max-height: 230px;
-  overflow-y: scroll;
-  background-color: #e6e6e6;
-}
-.logwrapper.expanded {
-  max-height: none;
-}
-.logwrapper.expanded .logexpander:after {
-  content: "collapse [-]";
-}
-.logwrapper .logexpander {
-  z-index: 1;
-  position: sticky;
-  top: 10px;
-  width: max-content;
-  border: 1px solid;
-  border-radius: 3px;
-  padding: 5px 7px;
-  margin: 10px 0 10px calc(100% - 80px);
-  cursor: pointer;
-  background-color: #e6e6e6;
-}
-.logwrapper .logexpander:after {
-  content: "expand [+]";
-}
-.logwrapper .logexpander:hover {
-  color: #000;
-  border-color: #000;
-}
-.logwrapper .log {
-  min-height: 40px;
-  position: relative;
-  top: -50px;
-  height: calc(100% + 50px);
-  border: 1px solid #e6e6e6;
-  color: black;
-  display: block;
-  font-family: "Courier New", Courier, monospace;
-  padding: 5px;
-  padding-right: 80px;
-  white-space: pre-wrap;
-}
-
-div.media {
-  border: 1px solid #e6e6e6;
-  float: right;
-  height: 240px;
-  margin: 0 5px;
-  overflow: hidden;
-  width: 320px;
-}
-
-.media-container {
-  display: grid;
-  grid-template-columns: 25px auto 25px;
-  align-items: center;
-  flex: 1 1;
-  overflow: hidden;
-  height: 200px;
-}
-
-.media-container--fullscreen {
-  grid-template-columns: 0px auto 0px;
-}
-
-.media-container__nav--right,
-.media-container__nav--left {
-  text-align: center;
-  cursor: pointer;
-}
-
-.media-container__viewport {
-  cursor: pointer;
-  text-align: center;
-  height: inherit;
-}
-.media-container__viewport img,
-.media-container__viewport video {
-  object-fit: cover;
-  width: 100%;
-  max-height: 100%;
-}
-
-.media__name,
-.media__counter {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  flex: 0 0 25px;
-  align-items: center;
-}
-
-.collapsible td:not(.col-links) {
-  cursor: pointer;
-}
-.collapsible td:not(.col-links):hover::after {
-  color: #bbb;
-  font-style: italic;
-  cursor: pointer;
-}
-
-.col-result {
-  width: 130px;
-}
-.col-result:hover::after {
-  content: " (hide details)";
-}
-
-.col-result.collapsed:hover::after {
-  content: " (show details)";
-}
-
-#environment-header h2:hover::after {
-  content: " (hide details)";
-  color: #bbb;
-  font-style: italic;
-  cursor: pointer;
-  font-size: 12px;
-}
-
-#environment-header.collapsed h2:hover::after {
-  content: " (show details)";
-  color: #bbb;
-  font-style: italic;
-  cursor: pointer;
-  font-size: 12px;
-}
-
-/*------------------
- * 3. Sorting items
- *------------------*/
-.sortable {
-  cursor: pointer;
-}
-.sortable.desc:after {
-  content: " ";
-  position: relative;
-  left: 5px;
-  bottom: -12.5px;
-  border: 10px solid #4caf50;
-  border-bottom: 0;
-  border-left-color: transparent;
-  border-right-color: transparent;
-}
-.sortable.asc:after {
-  content: " ";
-  position: relative;
-  left: 5px;
-  bottom: 12.5px;
-  border: 10px solid #4caf50;
-  border-top: 0;
-  border-left-color: transparent;
-  border-right-color: transparent;
-}
-
-.hidden, .summary__reload__button.hidden {
-  display: none;
-}
-
-.summary__data {
-  flex: 0 0 550px;
-}
-.summary__reload {
-  flex: 1 1;
-  display: flex;
-  justify-content: center;
-}
-.summary__reload__button {
-  flex: 0 0 300px;
-  display: flex;
-  color: white;
-  font-weight: bold;
-  background-color: #4caf50;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  border-radius: 3px;
-  cursor: pointer;
-}
-.summary__reload__button:hover {
-  background-color: #46a049;
-}
-.summary__spacer {
-  flex: 0 0 550px;
-}
-
-.controls {
-  display: flex;
-  justify-content: space-between;
-}
-
-.filters,
-.collapse {
-  display: flex;
-  align-items: center;
-}
-.filters button,
-.collapse button {
-  color: #999;
-  border: none;
-  background: none;
-  cursor: pointer;
-  text-decoration: underline;
-}
-.filters button:hover,
-.collapse button:hover {
-  color: #ccc;
-}
-
-.filter__label {
-  margin-right: 10px;
-}
-
-      </style>
-    
+    <title id="head-title">Relatório de Testes Automatizados - SEA Tecnologia (Customizado)</title>
+      <link href="assets\style.css" rel="stylesheet" type="text/css"/>
   </head>
   <body>
-    <h1 id="title">Relatório de Testes Automatizados - SEA Tecnologia</h1>
-    <p>Report generated on 24-May-2025 at 11:27:04 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a>
+    <h1 id="title">Relatório de Testes Automatizados - SEA Tecnologia (Customizado)</h1>
+    <p>Report generated on 24-May-2025 at 13:54:54 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a>
         v4.1.1</p>
     <div id="environment-header">
       <h2>Environment</h2>
@@ -381,8 +60,11 @@ div.media {
       <div class="summary__data">
         <h2>Summary</h2>
         <div class="additional-summary prefix">
+          <py._xmlgen.raw object at 0x000001AF268C9C40>
+          <py._xmlgen.raw object at 0x000001AF268CBE30>
+          <py._xmlgen.raw object at 0x000001AF268C9670>
         </div>
-        <p class="run-count">4 tests took 00:01:10.</p>
+        <p class="run-count">4 tests took 00:01:11.</p>
         <p class="filter">(Un)check the boxes to filter the results.</p>
         <div class="summary__reload">
           <div class="summary__reload__button hidden" onclick="location.reload()">
@@ -415,6 +97,7 @@ div.media {
       <div class="additional-summary summary">
       </div>
       <div class="additional-summary postfix">
+        <py._xmlgen.raw object at 0x000001AF268CB830>
       </div>
     </div>
     <table id="results-table">
@@ -429,7 +112,7 @@ div.media {
     </table>
   </body>
   <footer>
-    <div id="data-container" data-jsonblob="{&#34;environment&#34;: {&#34;Python&#34;: &#34;3.12.10&#34;, &#34;Platform&#34;: &#34;Windows-11-10.0.26100-SP0&#34;, &#34;Packages&#34;: {&#34;pytest&#34;: &#34;8.1.1&#34;, &#34;pluggy&#34;: &#34;1.6.0&#34;}, &#34;Plugins&#34;: {&#34;base-url&#34;: &#34;2.1.0&#34;, &#34;html&#34;: &#34;4.1.1&#34;, &#34;metadata&#34;: &#34;3.1.1&#34;, &#34;playwright&#34;: &#34;0.7.0&#34;}, &#34;Base URL&#34;: &#34;&#34;}, &#34;tests&#34;: {&#34;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_01_inclusao_cadastro_empregado&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_01_inclusao_cadastro_empregado&#34;, &#34;duration&#34;: &#34;00:00:05&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_01_inclusao_cadastro_empregado&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:05&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\n\n--- TESTE 01: Inclus\u00e3o de Cadastro de Empregado ---\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\00_pagina_inicial_limpa_teste01_20250524_112557.png\nTentando incluir cadastro: Carlos Testador QA (CPF: 777.888.999-00)\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\01_antes_clicar_adicionar_funcionario_Carlos_Testador_QA_20250524_112557.png\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\02_apos_abrir_formulario_cadastro_Carlos_Testador_QA_20250524_112557.png\nDEBUG: Abrindo dropdown para &amp;#x27;Cargo&amp;#x27; com valor &amp;#x27;Cargo 02&amp;#x27;\nDEBUG: Item &amp;#x27;Cargo 02&amp;#x27; encontrado e vis\u00edvel. Clicando...\nDEBUG: Sele\u00e7\u00e3o de &amp;#x27;Cargo 02&amp;#x27; confirmada para &amp;#x27;Cargo&amp;#x27;.\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\03_formulario_cadastro_preenchido_Carlos_Testador_QA_20250524_112558.png\n\u2705 Cadastro inclu\u00eddo: Carlos Testador QA\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\03b_apos_salvar_inclusao_teste01_Carlos_Testador_QA_20250524_112558.png\n\u2705 TESTE 01 CONCLU\u00cdDO: Cadastro de &amp;#x27;Carlos Testador QA&amp;#x27; (CPF: 777.888.999-00) foi inclu\u00eddo com sucesso na aplica\u00e7\u00e3o.\n&#34;}], &#34;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_02_consulta_registro_nao_visivel&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Failed&#34;, &#34;testId&#34;: &#34;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_02_consulta_registro_nao_visivel&#34;, &#34;duration&#34;: &#34;00:00:30&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Failed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_02_consulta_registro_nao_visivel&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:30&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;self = &amp;lt;test_cadastro_empregado.TestFuncionaisCadastro object at 0x000001BC574F2C30&amp;gt;, request = &amp;lt;FixtureRequest for &amp;lt;Function test_02_consulta_registro_nao_visivel&amp;gt;&amp;gt;, page = &amp;lt;Page url=&amp;#x27;https://analista-teste.seatecnologia.com.br/&amp;#x27;&amp;gt;\nemployee_data_for_test = {&amp;#x27;atividade&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;ca_number&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;cargo&amp;#x27;: &amp;#x27;Cargo 02&amp;#x27;, &amp;#x27;cpf&amp;#x27;: &amp;#x27;777.888.999-00&amp;#x27;, ...}\n\n    def test_02_consulta_registro_nao_visivel(self, request, page: Page, employee_data_for_test: dict):\n        print(&amp;quot;\\n--- TESTE 02: Consulta de Registro - N\u00e3o Vis\u00edvel Ap\u00f3s Inclus\u00e3o e Refresh ---&amp;quot;)\n        page.goto(APP_URL)\n        page.wait_for_load_state(&amp;quot;networkidle&amp;quot;)\n        s_path = take_screenshot(page, &amp;quot;04_pagina_principal_antes_consulta_teste02&amp;quot;, dados_empregado=employee_data_for_test)\n        if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n    \n        nome_empregado = employee_data_for_test[&amp;quot;nome&amp;quot;]\n        cpf_empregado = employee_data_for_test[&amp;quot;cpf&amp;quot;]\n    \n        empregado_locator_unico = page.locator(\n            f&amp;#x27;div.c-bXqUbA:has-text(&amp;quot;{nome_empregado}&amp;quot;):has(div.c-iYbcAK:has-text(&amp;quot;{cpf_empregado}&amp;quot;))&amp;#x27;\n        ).first\n    \n        print(f&amp;quot;DEBUG: Tentando encontrar &amp;#x27;{nome_empregado}&amp;#x27; (CPF: {cpf_empregado}) sem refresh (expectativa: N\u00c3O vis\u00edvel)...&amp;quot;)\n        encontrado_sem_refresh = False\n        try:\n            empregado_locator_unico.wait_for(state=&amp;quot;visible&amp;quot;, timeout=5000)\n            encontrado_sem_refresh = True\n            s_path = take_screenshot(page, f&amp;quot;05_ENCONTRADO_IMEDIATAMENTE_teste02&amp;quot;, dados_empregado=employee_data_for_test)\n            if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n        except TimeoutError:\n            s_path = take_screenshot(page, f&amp;quot;05_NAO_ENCONTRADO_IMEDIATAMENTE_teste02&amp;quot;, dados_empregado=employee_data_for_test)\n            if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n    \n        print(&amp;quot;DEBUG: Realizando refresh da p\u00e1gina...&amp;quot;)\n        page.reload(wait_until=&amp;quot;networkidle&amp;quot;)\n        s_path = take_screenshot(page, &amp;quot;06_pagina_principal_apos_refresh_teste02&amp;quot;, dados_empregado=employee_data_for_test)\n        if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n    \n        print(f&amp;quot;DEBUG: Tentando encontrar &amp;#x27;{nome_empregado}&amp;#x27; (CPF: {cpf_empregado}) ap\u00f3s refresh (expectativa: N\u00c3O vis\u00edvel, por falta de pagina\u00e7\u00e3o)...&amp;quot;)\n        # ... (Restante da l\u00f3gica de verifica\u00e7\u00e3o de visibilidade e scroll como antes) ...\n        encontrado_apos_refresh = False\n        try:\n            empregado_locator_unico.wait_for(state=&amp;quot;visible&amp;quot;, timeout=10000)\n            encontrado_apos_refresh = True\n            s_path = take_screenshot(page, f&amp;quot;07_ENCONTRADO_APOS_REFRESH_SEM_SCROLL_teste02&amp;quot;, dados_empregado=employee_data_for_test)\n            if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n        except TimeoutError:\n            s_path = take_screenshot(page, f&amp;quot;07_NAO_ENCONTRADO_APOS_REFRESH_SEM_SCROLL_teste02&amp;quot;, dados_empregado=employee_data_for_test)\n            if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n    \n        print(&amp;quot;DEBUG: Tentando rolar a p\u00e1gina para baixo para verificar se o registro aparece...&amp;quot;)\n        page.mouse.wheel(0, 10000)\n        page.wait_for_timeout(2000)\n        s_path = take_screenshot(page, f&amp;quot;08_pagina_principal_apos_scroll_teste02&amp;quot;, dados_empregado=employee_data_for_test)\n        if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n    \n        encontrado_apos_scroll = False\n        try:\n            empregado_locator_unico.wait_for(state=&amp;quot;visible&amp;quot;, timeout=10000)\n            encontrado_apos_scroll = True\n            s_path = take_screenshot(page, f&amp;quot;09_ENCONTRADO_APOS_SCROLL_teste02&amp;quot;, dados_empregado=employee_data_for_test)\n            if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n        except TimeoutError:\n            s_path = take_screenshot(page, f&amp;quot;09_NAO_ENCONTRADO_APOS_SCROLL_teste02&amp;quot;, dados_empregado=employee_data_for_test)\n            if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n    \n        if not encontrado_apos_scroll:\n&amp;gt;           pytest.fail(\n                f&amp;quot;FALHA CR\u00cdTICA (TESTE 02): O cadastro de &amp;#x27;{nome_empregado}&amp;#x27; (CPF: {cpf_empregado}) N\u00c3O \u00c9 VISUALIZADO na lista &amp;quot;\n                f&amp;quot;mesmo ap\u00f3s inclus\u00e3o, refresh E rolagem da p\u00e1gina. Defeito de persist\u00eancia/sincroniza\u00e7\u00e3o/pagina\u00e7\u00e3o.&amp;quot;\n            )\nE           Failed: FALHA CR\u00cdTICA (TESTE 02): O cadastro de &amp;#x27;Carlos Testador QA&amp;#x27; (CPF: 777.888.999-00) N\u00c3O \u00c9 VISUALIZADO na lista mesmo ap\u00f3s inclus\u00e3o, refresh E rolagem da p\u00e1gina. Defeito de persist\u00eancia/sincroniza\u00e7\u00e3o/pagina\u00e7\u00e3o.\n\ntests\\test_cadastro_empregado.py:173: Failed\n\n----------------------------- Captured stdout call -----------------------------\n\n--- TESTE 02: Consulta de Registro - N\u00e3o Vis\u00edvel Ap\u00f3s Inclus\u00e3o e Refresh ---\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\04_pagina_principal_antes_consulta_teste02_Carlos_Testador_QA_20250524_112600.png\nDEBUG: Tentando encontrar &amp;#x27;Carlos Testador QA&amp;#x27; (CPF: 777.888.999-00) sem refresh (expectativa: N\u00c3O vis\u00edvel)...\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\05_NAO_ENCONTRADO_IMEDIATAMENTE_teste02_Carlos_Testador_QA_20250524_112605.png\nDEBUG: Realizando refresh da p\u00e1gina...\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\06_pagina_principal_apos_refresh_teste02_Carlos_Testador_QA_20250524_112606.png\nDEBUG: Tentando encontrar &amp;#x27;Carlos Testador QA&amp;#x27; (CPF: 777.888.999-00) ap\u00f3s refresh (expectativa: N\u00c3O vis\u00edvel, por falta de pagina\u00e7\u00e3o)...\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\07_NAO_ENCONTRADO_APOS_REFRESH_SEM_SCROLL_teste02_Carlos_Testador_QA_20250524_112616.png\nDEBUG: Tentando rolar a p\u00e1gina para baixo para verificar se o registro aparece...\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\08_pagina_principal_apos_scroll_teste02_Carlos_Testador_QA_20250524_112619.png\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\09_NAO_ENCONTRADO_APOS_SCROLL_teste02_Carlos_Testador_QA_20250524_112629.png\n&#34;}], &#34;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_03_tentativa_alteracao_menu_ausente&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Failed&#34;, &#34;testId&#34;: &#34;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_03_tentativa_alteracao_menu_ausente&#34;, &#34;duration&#34;: &#34;00:00:12&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Failed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_03_tentativa_alteracao_menu_ausente&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:12&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;self = &amp;lt;test_cadastro_empregado.TestFuncionaisCadastro object at 0x000001BC574F3020&amp;gt;, request = &amp;lt;FixtureRequest for &amp;lt;Function test_03_tentativa_alteracao_menu_ausente&amp;gt;&amp;gt;, page = &amp;lt;Page url=&amp;#x27;https://analista-teste.seatecnologia.com.br/&amp;#x27;&amp;gt;\nemployee_data_for_test = {&amp;#x27;atividade&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;ca_number&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;cargo&amp;#x27;: &amp;#x27;Cargo 02&amp;#x27;, &amp;#x27;cpf&amp;#x27;: &amp;#x27;777.888.999-00&amp;#x27;, ...}\n\n    def test_03_tentativa_alteracao_menu_ausente(self, request, page: Page, employee_data_for_test: dict):\n        print(&amp;quot;\\n--- TESTE 03: Tentativa de Altera\u00e7\u00e3o - Menu Ausente ---&amp;quot;)\n        page.goto(APP_URL)\n        page.wait_for_load_state(&amp;quot;networkidle&amp;quot;)\n    \n        nome_empregado = employee_data_for_test[&amp;quot;nome&amp;quot;]\n        cpf_empregado = employee_data_for_test[&amp;quot;cpf&amp;quot;]\n    \n        empregado_locator_unico = page.locator(\n            f&amp;#x27;div.c-bXqUbA:has-text(&amp;quot;{nome_empregado}&amp;quot;):has(div.c-iYbcAK:has-text(&amp;quot;{cpf_empregado}&amp;quot;))&amp;#x27;\n        ).first\n    \n        try:\n&amp;gt;           empregado_locator_unico.scroll_into_view_if_needed(timeout=10000)\n\ntests\\test_cadastro_empregado.py:192: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nvenv\\Lib\\site-packages\\playwright\\sync_api\\_generated.py:16656: in scroll_into_view_if_needed\n    self._sync(self._impl_obj.scroll_into_view_if_needed(timeout=timeout))\nvenv\\Lib\\site-packages\\playwright\\_impl\\_locator.py:538: in scroll_into_view_if_needed\n    return await self._with_element(\nvenv\\Lib\\site-packages\\playwright\\_impl\\_locator.py:108: in _with_element\n    handle = await self.element_handle(timeout=timeout)\nvenv\\Lib\\site-packages\\playwright\\_impl\\_locator.py:308: in element_handle\n    handle = await self._frame.wait_for_selector(\nvenv\\Lib\\site-packages\\playwright\\_impl\\_frame.py:323: in wait_for_selector\n    await self._channel.send(&amp;quot;waitForSelector&amp;quot;, locals_to_params(locals()))\nvenv\\Lib\\site-packages\\playwright\\_impl\\_connection.py:59: in send\n    return await self._connection.wrap_api_call(\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = &amp;lt;playwright._impl._connection.Connection object at 0x000001BC5751AA50&amp;gt;, cb = &amp;lt;function Channel.send.&amp;lt;locals&amp;gt;.&amp;lt;lambda&amp;gt; at 0x000001BC579ED3A0&amp;gt;, is_internal = False\n\n    async def wrap_api_call(\n        self, cb: Callable[[], Any], is_internal: bool = False\n    ) -&amp;gt; Any:\n        if self._api_zone.get():\n            return await cb()\n        task = asyncio.current_task(self._loop)\n        st: List[inspect.FrameInfo] = getattr(task, &amp;quot;__pw_stack__&amp;quot;, inspect.stack())\n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n&amp;gt;           raise rewrite_error(error, f&amp;quot;{parsed_st[&amp;#x27;apiName&amp;#x27;]}: {error}&amp;quot;) from None\nE           playwright._impl._errors.TimeoutError: Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.\nE           Call log:\nE           waiting for locator(&amp;quot;div.c-bXqUbA:has-text(\\&amp;quot;Carlos Testador QA\\&amp;quot;):has(div.c-iYbcAK:has-text(\\&amp;quot;777.888.999-00\\&amp;quot;))&amp;quot;).first\n\nvenv\\Lib\\site-packages\\playwright\\_impl\\_connection.py:513: TimeoutError\n\nDuring handling of the above exception, another exception occurred:\n\nself = &amp;lt;test_cadastro_empregado.TestFuncionaisCadastro object at 0x000001BC574F3020&amp;gt;, request = &amp;lt;FixtureRequest for &amp;lt;Function test_03_tentativa_alteracao_menu_ausente&amp;gt;&amp;gt;, page = &amp;lt;Page url=&amp;#x27;https://analista-teste.seatecnologia.com.br/&amp;#x27;&amp;gt;\nemployee_data_for_test = {&amp;#x27;atividade&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;ca_number&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;cargo&amp;#x27;: &amp;#x27;Cargo 02&amp;#x27;, &amp;#x27;cpf&amp;#x27;: &amp;#x27;777.888.999-00&amp;#x27;, ...}\n\n    def test_03_tentativa_alteracao_menu_ausente(self, request, page: Page, employee_data_for_test: dict):\n        print(&amp;quot;\\n--- TESTE 03: Tentativa de Altera\u00e7\u00e3o - Menu Ausente ---&amp;quot;)\n        page.goto(APP_URL)\n        page.wait_for_load_state(&amp;quot;networkidle&amp;quot;)\n    \n        nome_empregado = employee_data_for_test[&amp;quot;nome&amp;quot;]\n        cpf_empregado = employee_data_for_test[&amp;quot;cpf&amp;quot;]\n    \n        empregado_locator_unico = page.locator(\n            f&amp;#x27;div.c-bXqUbA:has-text(&amp;quot;{nome_empregado}&amp;quot;):has(div.c-iYbcAK:has-text(&amp;quot;{cpf_empregado}&amp;quot;))&amp;#x27;\n        ).first\n    \n        try:\n            empregado_locator_unico.scroll_into_view_if_needed(timeout=10000)\n        except TimeoutError:\n            s_path = take_screenshot(page, f&amp;quot;10_NAO_VISIVEL_PARA_MENU_DOTS_teste03&amp;quot;, dados_empregado=employee_data_for_test)\n            if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n&amp;gt;           pytest.fail(f&amp;quot;FALHA (TESTE 03): Empregado &amp;#x27;{nome_empregado}&amp;#x27; n\u00e3o vis\u00edvel para interagir com o menu &amp;#x27;...&amp;#x27;.&amp;quot;)\nE           Failed: FALHA (TESTE 03): Empregado &amp;#x27;Carlos Testador QA&amp;#x27; n\u00e3o vis\u00edvel para interagir com o menu &amp;#x27;...&amp;#x27;.\n\ntests\\test_cadastro_empregado.py:196: Failed\n\n----------------------------- Captured stdout call -----------------------------\n\n--- TESTE 03: Tentativa de Altera\u00e7\u00e3o - Menu Ausente ---\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\10_NAO_VISIVEL_PARA_MENU_DOTS_teste03_Carlos_Testador_QA_20250524_112640.png\n&#34;}], &#34;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_04_tentativa_exclusao_menu_ausente&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Failed&#34;, &#34;testId&#34;: &#34;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_04_tentativa_exclusao_menu_ausente&#34;, &#34;duration&#34;: &#34;00:00:23&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Failed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_04_tentativa_exclusao_menu_ausente&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:23&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;self = &amp;lt;test_cadastro_empregado.TestFuncionaisCadastro object at 0x000001BC574F3290&amp;gt;, request = &amp;lt;FixtureRequest for &amp;lt;Function test_04_tentativa_exclusao_menu_ausente&amp;gt;&amp;gt;, page = &amp;lt;Page url=&amp;#x27;https://analista-teste.seatecnologia.com.br/&amp;#x27;&amp;gt;\nemployee_data_for_test = {&amp;#x27;atividade&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;ca_number&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;cargo&amp;#x27;: &amp;#x27;Cargo 02&amp;#x27;, &amp;#x27;cpf&amp;#x27;: &amp;#x27;777.888.999-00&amp;#x27;, ...}\n\n    def test_04_tentativa_exclusao_menu_ausente(self, request, page: Page, employee_data_for_test: dict):\n        print(&amp;quot;\\n--- TESTE 04: Tentativa de Exclus\u00e3o - Menu Ausente ---&amp;quot;)\n        page.goto(APP_URL)\n        page.wait_for_load_state(&amp;quot;networkidle&amp;quot;)\n    \n        nome_empregado = employee_data_for_test[&amp;quot;nome&amp;quot;]\n        cpf_empregado = employee_data_for_test[&amp;quot;cpf&amp;quot;]\n    \n        empregado_locator_unico = page.locator(\n            f&amp;#x27;div.c-bXqUbA:has-text(&amp;quot;{nome_empregado}&amp;quot;):has(div.c-iYbcAK:has-text(&amp;quot;{cpf_empregado}&amp;quot;))&amp;#x27;\n        ).first\n    \n        try:\n&amp;gt;           empregado_locator_unico.scroll_into_view_if_needed(timeout=10000)\n\ntests\\test_cadastro_empregado.py:234: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nvenv\\Lib\\site-packages\\playwright\\sync_api\\_generated.py:16656: in scroll_into_view_if_needed\n    self._sync(self._impl_obj.scroll_into_view_if_needed(timeout=timeout))\nvenv\\Lib\\site-packages\\playwright\\_impl\\_locator.py:538: in scroll_into_view_if_needed\n    return await self._with_element(\nvenv\\Lib\\site-packages\\playwright\\_impl\\_locator.py:108: in _with_element\n    handle = await self.element_handle(timeout=timeout)\nvenv\\Lib\\site-packages\\playwright\\_impl\\_locator.py:308: in element_handle\n    handle = await self._frame.wait_for_selector(\nvenv\\Lib\\site-packages\\playwright\\_impl\\_frame.py:323: in wait_for_selector\n    await self._channel.send(&amp;quot;waitForSelector&amp;quot;, locals_to_params(locals()))\nvenv\\Lib\\site-packages\\playwright\\_impl\\_connection.py:59: in send\n    return await self._connection.wrap_api_call(\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = &amp;lt;playwright._impl._connection.Connection object at 0x000001BC5751AA50&amp;gt;, cb = &amp;lt;function Channel.send.&amp;lt;locals&amp;gt;.&amp;lt;lambda&amp;gt; at 0x000001BC57A34220&amp;gt;, is_internal = False\n\n    async def wrap_api_call(\n        self, cb: Callable[[], Any], is_internal: bool = False\n    ) -&amp;gt; Any:\n        if self._api_zone.get():\n            return await cb()\n        task = asyncio.current_task(self._loop)\n        st: List[inspect.FrameInfo] = getattr(task, &amp;quot;__pw_stack__&amp;quot;, inspect.stack())\n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n&amp;gt;           raise rewrite_error(error, f&amp;quot;{parsed_st[&amp;#x27;apiName&amp;#x27;]}: {error}&amp;quot;) from None\nE           playwright._impl._errors.TimeoutError: Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.\nE           Call log:\nE           waiting for locator(&amp;quot;div.c-bXqUbA:has-text(\\&amp;quot;Carlos Testador QA\\&amp;quot;):has(div.c-iYbcAK:has-text(\\&amp;quot;777.888.999-00\\&amp;quot;))&amp;quot;).first\n\nvenv\\Lib\\site-packages\\playwright\\_impl\\_connection.py:513: TimeoutError\n\nDuring handling of the above exception, another exception occurred:\n\nself = &amp;lt;test_cadastro_empregado.TestFuncionaisCadastro object at 0x000001BC574F3290&amp;gt;, request = &amp;lt;FixtureRequest for &amp;lt;Function test_04_tentativa_exclusao_menu_ausente&amp;gt;&amp;gt;, page = &amp;lt;Page url=&amp;#x27;https://analista-teste.seatecnologia.com.br/&amp;#x27;&amp;gt;\nemployee_data_for_test = {&amp;#x27;atividade&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;ca_number&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;cargo&amp;#x27;: &amp;#x27;Cargo 02&amp;#x27;, &amp;#x27;cpf&amp;#x27;: &amp;#x27;777.888.999-00&amp;#x27;, ...}\n\n    def test_04_tentativa_exclusao_menu_ausente(self, request, page: Page, employee_data_for_test: dict):\n        print(&amp;quot;\\n--- TESTE 04: Tentativa de Exclus\u00e3o - Menu Ausente ---&amp;quot;)\n        page.goto(APP_URL)\n        page.wait_for_load_state(&amp;quot;networkidle&amp;quot;)\n    \n        nome_empregado = employee_data_for_test[&amp;quot;nome&amp;quot;]\n        cpf_empregado = employee_data_for_test[&amp;quot;cpf&amp;quot;]\n    \n        empregado_locator_unico = page.locator(\n            f&amp;#x27;div.c-bXqUbA:has-text(&amp;quot;{nome_empregado}&amp;quot;):has(div.c-iYbcAK:has-text(&amp;quot;{cpf_empregado}&amp;quot;))&amp;#x27;\n        ).first\n    \n        try:\n            empregado_locator_unico.scroll_into_view_if_needed(timeout=10000)\n        except TimeoutError:\n            s_path = take_screenshot(page, f&amp;quot;12_NAO_VISIVEL_PARA_MENU_DOTS_teste04&amp;quot;, dados_empregado=employee_data_for_test)\n            if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n&amp;gt;           pytest.fail(f&amp;quot;FALHA (TESTE 04): Empregado &amp;#x27;{nome_empregado}&amp;#x27; n\u00e3o vis\u00edvel para interagir com o menu &amp;#x27;...&amp;#x27;.&amp;quot;)\nE           Failed: FALHA (TESTE 04): Empregado &amp;#x27;Carlos Testador QA&amp;#x27; n\u00e3o vis\u00edvel para interagir com o menu &amp;#x27;...&amp;#x27;.\n\ntests\\test_cadastro_empregado.py:238: Failed\n\n----------------------------- Captured stdout call -----------------------------\n\n--- TESTE 04: Tentativa de Exclus\u00e3o - Menu Ausente ---\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\12_NAO_VISIVEL_PARA_MENU_DOTS_teste04_Carlos_Testador_QA_20250524_112652.png\n--------------------------- Captured stdout teardown ---------------------------\n\n--- Iniciando limpeza de dados de teste (conftest.py) ---\nINFO: [LIMPEZA NO CONFTEST] Tentando limpar o cadastro de &amp;#x27;Carlos Testador QA&amp;#x27; (CPF: 777.888.999-00)...\nAVISO: [LIMPEZA NO CONFTEST] Falha ao excluir o cadastro &amp;#x27;Carlos Testador QA&amp;#x27; (CPF: 777.888.999-00): Locator.wait_for: Timeout 7000ms exceeded.\nCall log:\nwaiting for locator(&amp;quot;div.c-bXqUbA:has-text(\\&amp;quot;Carlos Testador QA\\&amp;quot;):has(div.c-iYbcAK:has-text(\\&amp;quot;777.888.999-00\\&amp;quot;))&amp;quot;).first.locator(&amp;quot;div.c-jyZWAy&amp;quot;) to be visible\n.\n--- Limpeza de dados de teste conclu\u00edda (conftest.py) ---\n&#34;}]}, &#34;renderCollapsed&#34;: [&#34;passed&#34;], &#34;initialSort&#34;: &#34;result&#34;, &#34;title&#34;: &#34;Relat\u00f3rio de Testes Automatizados - SEA Tecnologia&#34;}"></div>
+    <div id="data-container" data-jsonblob="{&#34;environment&#34;: {&#34;Python&#34;: &#34;3.12.10&#34;, &#34;Platform&#34;: &#34;Windows-11-10.0.26100-SP0&#34;, &#34;Packages&#34;: {&#34;pytest&#34;: &#34;8.3.5&#34;, &#34;pluggy&#34;: &#34;1.6.0&#34;}, &#34;Plugins&#34;: {&#34;base-url&#34;: &#34;2.1.0&#34;, &#34;html&#34;: &#34;4.1.1&#34;, &#34;metadata&#34;: &#34;3.1.1&#34;, &#34;playwright&#34;: &#34;0.7.0&#34;}, &#34;Base URL&#34;: &#34;&#34;}, &#34;tests&#34;: {&#34;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_01_inclusao_cadastro_empregado&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_01_inclusao_cadastro_empregado&#34;, &#34;duration&#34;: &#34;00:00:04&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_01_inclusao_cadastro_empregado&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:04&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\n\n--- TESTE 01: Inclus\u00e3o de Cadastro de Empregado ---\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\00_pagina_inicial_limpa_teste01_20250524_135346.png\nTentando incluir cadastro: Carlos Testador QA (CPF: 777.888.999-00)\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\01_antes_clicar_adicionar_funcionario_Carlos_Testador_QA_20250524_135346.png\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\02_apos_abrir_formulario_cadastro_Carlos_Testador_QA_20250524_135346.png\nDEBUG: Abrindo dropdown para &amp;#x27;Cargo&amp;#x27; com valor &amp;#x27;Cargo 02&amp;#x27;\nDEBUG: Item &amp;#x27;Cargo 02&amp;#x27; encontrado e vis\u00edvel. Clicando...\nDEBUG: Sele\u00e7\u00e3o de &amp;#x27;Cargo 02&amp;#x27; confirmada para &amp;#x27;Cargo&amp;#x27;.\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\03_formulario_cadastro_preenchido_Carlos_Testador_QA_20250524_135347.png\n\u2705 Cadastro inclu\u00eddo: Carlos Testador QA\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\03b_apos_salvar_inclusao_teste01_Carlos_Testador_QA_20250524_135347.png\n\u2705 TESTE 01 CONCLU\u00cdDO: Cadastro de &amp;#x27;Carlos Testador QA&amp;#x27; (CPF: 777.888.999-00) foi inclu\u00eddo com sucesso na aplica\u00e7\u00e3o.\n&#34;}], &#34;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_02_consulta_registro_nao_visivel&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Failed&#34;, &#34;testId&#34;: &#34;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_02_consulta_registro_nao_visivel&#34;, &#34;duration&#34;: &#34;00:00:30&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Failed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_02_consulta_registro_nao_visivel&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:30&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;self = &amp;lt;test_cadastro_empregado.TestFuncionaisCadastro object at 0x000001AF26519970&amp;gt;, request = &amp;lt;FixtureRequest for &amp;lt;Function test_02_consulta_registro_nao_visivel&amp;gt;&amp;gt;, page = &amp;lt;Page url=&amp;#x27;https://analista-teste.seatecnologia.com.br/&amp;#x27;&amp;gt;\nemployee_data_for_test = {&amp;#x27;atividade&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;ca_number&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;cargo&amp;#x27;: &amp;#x27;Cargo 02&amp;#x27;, &amp;#x27;cpf&amp;#x27;: &amp;#x27;777.888.999-00&amp;#x27;, ...}\n\n    def test_02_consulta_registro_nao_visivel(self, request, page: Page, employee_data_for_test: dict):\n        print(&amp;quot;\\n--- TESTE 02: Consulta de Registro - N\u00e3o Vis\u00edvel Ap\u00f3s Inclus\u00e3o e Refresh ---&amp;quot;)\n        page.goto(APP_URL)\n        page.wait_for_load_state(&amp;quot;networkidle&amp;quot;)\n        s_path = take_screenshot(page, &amp;quot;04_pagina_principal_antes_consulta_teste02&amp;quot;, dados_empregado=employee_data_for_test)\n        if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n    \n        nome_empregado = employee_data_for_test[&amp;quot;nome&amp;quot;]\n        cpf_empregado = employee_data_for_test[&amp;quot;cpf&amp;quot;]\n    \n        empregado_locator_unico = page.locator(\n            f&amp;#x27;div.c-bXqUbA:has-text(&amp;quot;{nome_empregado}&amp;quot;):has(div.c-iYbcAK:has-text(&amp;quot;{cpf_empregado}&amp;quot;))&amp;#x27;\n        ).first\n    \n        print(f&amp;quot;DEBUG: Tentando encontrar &amp;#x27;{nome_empregado}&amp;#x27; (CPF: {cpf_empregado}) sem refresh (expectativa: N\u00c3O vis\u00edvel)...&amp;quot;)\n        encontrado_sem_refresh = False\n        try:\n            empregado_locator_unico.wait_for(state=&amp;quot;visible&amp;quot;, timeout=5000)\n            encontrado_sem_refresh = True\n            s_path = take_screenshot(page, f&amp;quot;05_ENCONTRADO_IMEDIATAMENTE_teste02&amp;quot;, dados_empregado=employee_data_for_test)\n            if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n        except TimeoutError:\n            s_path = take_screenshot(page, f&amp;quot;05_NAO_ENCONTRADO_IMEDIATAMENTE_teste02&amp;quot;, dados_empregado=employee_data_for_test)\n            if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n    \n        print(&amp;quot;DEBUG: Realizando refresh da p\u00e1gina...&amp;quot;)\n        page.reload(wait_until=&amp;quot;networkidle&amp;quot;)\n        s_path = take_screenshot(page, &amp;quot;06_pagina_principal_apos_refresh_teste02&amp;quot;, dados_empregado=employee_data_for_test)\n        if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n    \n        print(f&amp;quot;DEBUG: Tentando encontrar &amp;#x27;{nome_empregado}&amp;#x27; (CPF: {cpf_empregado}) ap\u00f3s refresh (expectativa: N\u00c3O vis\u00edvel, por falta de pagina\u00e7\u00e3o)...&amp;quot;)\n        # ... (Restante da l\u00f3gica de verifica\u00e7\u00e3o de visibilidade e scroll como antes) ...\n        encontrado_apos_refresh = False\n        try:\n            empregado_locator_unico.wait_for(state=&amp;quot;visible&amp;quot;, timeout=10000)\n            encontrado_apos_refresh = True\n            s_path = take_screenshot(page, f&amp;quot;07_ENCONTRADO_APOS_REFRESH_SEM_SCROLL_teste02&amp;quot;, dados_empregado=employee_data_for_test)\n            if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n        except TimeoutError:\n            s_path = take_screenshot(page, f&amp;quot;07_NAO_ENCONTRADO_APOS_REFRESH_SEM_SCROLL_teste02&amp;quot;, dados_empregado=employee_data_for_test)\n            if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n    \n        print(&amp;quot;DEBUG: Tentando rolar a p\u00e1gina para baixo para verificar se o registro aparece...&amp;quot;)\n        page.mouse.wheel(0, 10000)\n        page.wait_for_timeout(2000)\n        s_path = take_screenshot(page, f&amp;quot;08_pagina_principal_apos_scroll_teste02&amp;quot;, dados_empregado=employee_data_for_test)\n        if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n    \n        encontrado_apos_scroll = False\n        try:\n            empregado_locator_unico.wait_for(state=&amp;quot;visible&amp;quot;, timeout=10000)\n            encontrado_apos_scroll = True\n            s_path = take_screenshot(page, f&amp;quot;09_ENCONTRADO_APOS_SCROLL_teste02&amp;quot;, dados_empregado=employee_data_for_test)\n            if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n        except TimeoutError:\n            s_path = take_screenshot(page, f&amp;quot;09_NAO_ENCONTRADO_APOS_SCROLL_teste02&amp;quot;, dados_empregado=employee_data_for_test)\n            if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n    \n        if not encontrado_apos_scroll:\n&amp;gt;           pytest.fail(\n                f&amp;quot;FALHA CR\u00cdTICA (TESTE 02): O cadastro de &amp;#x27;{nome_empregado}&amp;#x27; (CPF: {cpf_empregado}) N\u00c3O \u00c9 VISUALIZADO na lista &amp;quot;\n                f&amp;quot;mesmo ap\u00f3s inclus\u00e3o, refresh E rolagem da p\u00e1gina. Defeito de persist\u00eancia/sincroniza\u00e7\u00e3o/pagina\u00e7\u00e3o.&amp;quot;\n            )\nE           Failed: FALHA CR\u00cdTICA (TESTE 02): O cadastro de &amp;#x27;Carlos Testador QA&amp;#x27; (CPF: 777.888.999-00) N\u00c3O \u00c9 VISUALIZADO na lista mesmo ap\u00f3s inclus\u00e3o, refresh E rolagem da p\u00e1gina. Defeito de persist\u00eancia/sincroniza\u00e7\u00e3o/pagina\u00e7\u00e3o.\n\ntests\\test_cadastro_empregado.py:173: Failed\n\n----------------------------- Captured stdout call -----------------------------\n\n--- TESTE 02: Consulta de Registro - N\u00e3o Vis\u00edvel Ap\u00f3s Inclus\u00e3o e Refresh ---\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\04_pagina_principal_antes_consulta_teste02_Carlos_Testador_QA_20250524_135348.png\nDEBUG: Tentando encontrar &amp;#x27;Carlos Testador QA&amp;#x27; (CPF: 777.888.999-00) sem refresh (expectativa: N\u00c3O vis\u00edvel)...\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\05_NAO_ENCONTRADO_IMEDIATAMENTE_teste02_Carlos_Testador_QA_20250524_135353.png\nDEBUG: Realizando refresh da p\u00e1gina...\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\06_pagina_principal_apos_refresh_teste02_Carlos_Testador_QA_20250524_135355.png\nDEBUG: Tentando encontrar &amp;#x27;Carlos Testador QA&amp;#x27; (CPF: 777.888.999-00) ap\u00f3s refresh (expectativa: N\u00c3O vis\u00edvel, por falta de pagina\u00e7\u00e3o)...\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\07_NAO_ENCONTRADO_APOS_REFRESH_SEM_SCROLL_teste02_Carlos_Testador_QA_20250524_135405.png\nDEBUG: Tentando rolar a p\u00e1gina para baixo para verificar se o registro aparece...\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\08_pagina_principal_apos_scroll_teste02_Carlos_Testador_QA_20250524_135407.png\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\09_NAO_ENCONTRADO_APOS_SCROLL_teste02_Carlos_Testador_QA_20250524_135417.png\n&#34;}], &#34;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_03_tentativa_alteracao_menu_ausente&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Failed&#34;, &#34;testId&#34;: &#34;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_03_tentativa_alteracao_menu_ausente&#34;, &#34;duration&#34;: &#34;00:00:12&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Failed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_03_tentativa_alteracao_menu_ausente&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:12&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;self = &amp;lt;test_cadastro_empregado.TestFuncionaisCadastro object at 0x000001AF26519A30&amp;gt;, request = &amp;lt;FixtureRequest for &amp;lt;Function test_03_tentativa_alteracao_menu_ausente&amp;gt;&amp;gt;, page = &amp;lt;Page url=&amp;#x27;https://analista-teste.seatecnologia.com.br/&amp;#x27;&amp;gt;\nemployee_data_for_test = {&amp;#x27;atividade&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;ca_number&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;cargo&amp;#x27;: &amp;#x27;Cargo 02&amp;#x27;, &amp;#x27;cpf&amp;#x27;: &amp;#x27;777.888.999-00&amp;#x27;, ...}\n\n    def test_03_tentativa_alteracao_menu_ausente(self, request, page: Page, employee_data_for_test: dict):\n        print(&amp;quot;\\n--- TESTE 03: Tentativa de Altera\u00e7\u00e3o - Menu Ausente ---&amp;quot;)\n        page.goto(APP_URL)\n        page.wait_for_load_state(&amp;quot;networkidle&amp;quot;)\n    \n        nome_empregado = employee_data_for_test[&amp;quot;nome&amp;quot;]\n        cpf_empregado = employee_data_for_test[&amp;quot;cpf&amp;quot;]\n    \n        empregado_locator_unico = page.locator(\n            f&amp;#x27;div.c-bXqUbA:has-text(&amp;quot;{nome_empregado}&amp;quot;):has(div.c-iYbcAK:has-text(&amp;quot;{cpf_empregado}&amp;quot;))&amp;#x27;\n        ).first\n    \n        try:\n&amp;gt;           empregado_locator_unico.scroll_into_view_if_needed(timeout=10000)\n\ntests\\test_cadastro_empregado.py:192: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nvenv\\Lib\\site-packages\\playwright\\sync_api\\_generated.py:16656: in scroll_into_view_if_needed\n    self._sync(self._impl_obj.scroll_into_view_if_needed(timeout=timeout))\nvenv\\Lib\\site-packages\\playwright\\_impl\\_locator.py:538: in scroll_into_view_if_needed\n    return await self._with_element(\nvenv\\Lib\\site-packages\\playwright\\_impl\\_locator.py:108: in _with_element\n    handle = await self.element_handle(timeout=timeout)\nvenv\\Lib\\site-packages\\playwright\\_impl\\_locator.py:308: in element_handle\n    handle = await self._frame.wait_for_selector(\nvenv\\Lib\\site-packages\\playwright\\_impl\\_frame.py:323: in wait_for_selector\n    await self._channel.send(&amp;quot;waitForSelector&amp;quot;, locals_to_params(locals()))\nvenv\\Lib\\site-packages\\playwright\\_impl\\_connection.py:59: in send\n    return await self._connection.wrap_api_call(\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = &amp;lt;playwright._impl._connection.Connection object at 0x000001AF239441A0&amp;gt;, cb = &amp;lt;function Channel.send.&amp;lt;locals&amp;gt;.&amp;lt;lambda&amp;gt; at 0x000001AF269E72E0&amp;gt;, is_internal = False\n\n    async def wrap_api_call(\n        self, cb: Callable[[], Any], is_internal: bool = False\n    ) -&amp;gt; Any:\n        if self._api_zone.get():\n            return await cb()\n        task = asyncio.current_task(self._loop)\n        st: List[inspect.FrameInfo] = getattr(task, &amp;quot;__pw_stack__&amp;quot;, inspect.stack())\n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n&amp;gt;           raise rewrite_error(error, f&amp;quot;{parsed_st[&amp;#x27;apiName&amp;#x27;]}: {error}&amp;quot;) from None\nE           playwright._impl._errors.TimeoutError: Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.\nE           Call log:\nE           waiting for locator(&amp;quot;div.c-bXqUbA:has-text(\\&amp;quot;Carlos Testador QA\\&amp;quot;):has(div.c-iYbcAK:has-text(\\&amp;quot;777.888.999-00\\&amp;quot;))&amp;quot;).first\n\nvenv\\Lib\\site-packages\\playwright\\_impl\\_connection.py:513: TimeoutError\n\nDuring handling of the above exception, another exception occurred:\n\nself = &amp;lt;test_cadastro_empregado.TestFuncionaisCadastro object at 0x000001AF26519A30&amp;gt;, request = &amp;lt;FixtureRequest for &amp;lt;Function test_03_tentativa_alteracao_menu_ausente&amp;gt;&amp;gt;, page = &amp;lt;Page url=&amp;#x27;https://analista-teste.seatecnologia.com.br/&amp;#x27;&amp;gt;\nemployee_data_for_test = {&amp;#x27;atividade&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;ca_number&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;cargo&amp;#x27;: &amp;#x27;Cargo 02&amp;#x27;, &amp;#x27;cpf&amp;#x27;: &amp;#x27;777.888.999-00&amp;#x27;, ...}\n\n    def test_03_tentativa_alteracao_menu_ausente(self, request, page: Page, employee_data_for_test: dict):\n        print(&amp;quot;\\n--- TESTE 03: Tentativa de Altera\u00e7\u00e3o - Menu Ausente ---&amp;quot;)\n        page.goto(APP_URL)\n        page.wait_for_load_state(&amp;quot;networkidle&amp;quot;)\n    \n        nome_empregado = employee_data_for_test[&amp;quot;nome&amp;quot;]\n        cpf_empregado = employee_data_for_test[&amp;quot;cpf&amp;quot;]\n    \n        empregado_locator_unico = page.locator(\n            f&amp;#x27;div.c-bXqUbA:has-text(&amp;quot;{nome_empregado}&amp;quot;):has(div.c-iYbcAK:has-text(&amp;quot;{cpf_empregado}&amp;quot;))&amp;#x27;\n        ).first\n    \n        try:\n            empregado_locator_unico.scroll_into_view_if_needed(timeout=10000)\n        except TimeoutError:\n            s_path = take_screenshot(page, f&amp;quot;10_NAO_VISIVEL_PARA_MENU_DOTS_teste03&amp;quot;, dados_empregado=employee_data_for_test)\n            if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n&amp;gt;           pytest.fail(f&amp;quot;FALHA (TESTE 03): Empregado &amp;#x27;{nome_empregado}&amp;#x27; n\u00e3o vis\u00edvel para interagir com o menu &amp;#x27;...&amp;#x27;.&amp;quot;)\nE           Failed: FALHA (TESTE 03): Empregado &amp;#x27;Carlos Testador QA&amp;#x27; n\u00e3o vis\u00edvel para interagir com o menu &amp;#x27;...&amp;#x27;.\n\ntests\\test_cadastro_empregado.py:196: Failed\n\n----------------------------- Captured stdout call -----------------------------\n\n--- TESTE 03: Tentativa de Altera\u00e7\u00e3o - Menu Ausente ---\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\10_NAO_VISIVEL_PARA_MENU_DOTS_teste03_Carlos_Testador_QA_20250524_135429.png\n&#34;}], &#34;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_04_tentativa_exclusao_menu_ausente&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Failed&#34;, &#34;testId&#34;: &#34;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_04_tentativa_exclusao_menu_ausente&#34;, &#34;duration&#34;: &#34;00:00:25&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Failed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_cadastro_empregado.py::TestFuncionaisCadastro::test_04_tentativa_exclusao_menu_ausente&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:25&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;self = &amp;lt;test_cadastro_empregado.TestFuncionaisCadastro object at 0x000001AF26519CA0&amp;gt;, request = &amp;lt;FixtureRequest for &amp;lt;Function test_04_tentativa_exclusao_menu_ausente&amp;gt;&amp;gt;, page = &amp;lt;Page url=&amp;#x27;https://analista-teste.seatecnologia.com.br/&amp;#x27;&amp;gt;\nemployee_data_for_test = {&amp;#x27;atividade&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;ca_number&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;cargo&amp;#x27;: &amp;#x27;Cargo 02&amp;#x27;, &amp;#x27;cpf&amp;#x27;: &amp;#x27;777.888.999-00&amp;#x27;, ...}\n\n    def test_04_tentativa_exclusao_menu_ausente(self, request, page: Page, employee_data_for_test: dict):\n        print(&amp;quot;\\n--- TESTE 04: Tentativa de Exclus\u00e3o - Menu Ausente ---&amp;quot;)\n        page.goto(APP_URL)\n        page.wait_for_load_state(&amp;quot;networkidle&amp;quot;)\n    \n        nome_empregado = employee_data_for_test[&amp;quot;nome&amp;quot;]\n        cpf_empregado = employee_data_for_test[&amp;quot;cpf&amp;quot;]\n    \n        empregado_locator_unico = page.locator(\n            f&amp;#x27;div.c-bXqUbA:has-text(&amp;quot;{nome_empregado}&amp;quot;):has(div.c-iYbcAK:has-text(&amp;quot;{cpf_empregado}&amp;quot;))&amp;#x27;\n        ).first\n    \n        try:\n&amp;gt;           empregado_locator_unico.scroll_into_view_if_needed(timeout=10000)\n\ntests\\test_cadastro_empregado.py:234: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nvenv\\Lib\\site-packages\\playwright\\sync_api\\_generated.py:16656: in scroll_into_view_if_needed\n    self._sync(self._impl_obj.scroll_into_view_if_needed(timeout=timeout))\nvenv\\Lib\\site-packages\\playwright\\_impl\\_locator.py:538: in scroll_into_view_if_needed\n    return await self._with_element(\nvenv\\Lib\\site-packages\\playwright\\_impl\\_locator.py:108: in _with_element\n    handle = await self.element_handle(timeout=timeout)\nvenv\\Lib\\site-packages\\playwright\\_impl\\_locator.py:308: in element_handle\n    handle = await self._frame.wait_for_selector(\nvenv\\Lib\\site-packages\\playwright\\_impl\\_frame.py:323: in wait_for_selector\n    await self._channel.send(&amp;quot;waitForSelector&amp;quot;, locals_to_params(locals()))\nvenv\\Lib\\site-packages\\playwright\\_impl\\_connection.py:59: in send\n    return await self._connection.wrap_api_call(\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = &amp;lt;playwright._impl._connection.Connection object at 0x000001AF239441A0&amp;gt;, cb = &amp;lt;function Channel.send.&amp;lt;locals&amp;gt;.&amp;lt;lambda&amp;gt; at 0x000001AF26939DA0&amp;gt;, is_internal = False\n\n    async def wrap_api_call(\n        self, cb: Callable[[], Any], is_internal: bool = False\n    ) -&amp;gt; Any:\n        if self._api_zone.get():\n            return await cb()\n        task = asyncio.current_task(self._loop)\n        st: List[inspect.FrameInfo] = getattr(task, &amp;quot;__pw_stack__&amp;quot;, inspect.stack())\n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n&amp;gt;           raise rewrite_error(error, f&amp;quot;{parsed_st[&amp;#x27;apiName&amp;#x27;]}: {error}&amp;quot;) from None\nE           playwright._impl._errors.TimeoutError: Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.\nE           Call log:\nE           waiting for locator(&amp;quot;div.c-bXqUbA:has-text(\\&amp;quot;Carlos Testador QA\\&amp;quot;):has(div.c-iYbcAK:has-text(\\&amp;quot;777.888.999-00\\&amp;quot;))&amp;quot;).first\n\nvenv\\Lib\\site-packages\\playwright\\_impl\\_connection.py:513: TimeoutError\n\nDuring handling of the above exception, another exception occurred:\n\nself = &amp;lt;test_cadastro_empregado.TestFuncionaisCadastro object at 0x000001AF26519CA0&amp;gt;, request = &amp;lt;FixtureRequest for &amp;lt;Function test_04_tentativa_exclusao_menu_ausente&amp;gt;&amp;gt;, page = &amp;lt;Page url=&amp;#x27;https://analista-teste.seatecnologia.com.br/&amp;#x27;&amp;gt;\nemployee_data_for_test = {&amp;#x27;atividade&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;ca_number&amp;#x27;: &amp;#x27;&amp;#x27;, &amp;#x27;cargo&amp;#x27;: &amp;#x27;Cargo 02&amp;#x27;, &amp;#x27;cpf&amp;#x27;: &amp;#x27;777.888.999-00&amp;#x27;, ...}\n\n    def test_04_tentativa_exclusao_menu_ausente(self, request, page: Page, employee_data_for_test: dict):\n        print(&amp;quot;\\n--- TESTE 04: Tentativa de Exclus\u00e3o - Menu Ausente ---&amp;quot;)\n        page.goto(APP_URL)\n        page.wait_for_load_state(&amp;quot;networkidle&amp;quot;)\n    \n        nome_empregado = employee_data_for_test[&amp;quot;nome&amp;quot;]\n        cpf_empregado = employee_data_for_test[&amp;quot;cpf&amp;quot;]\n    \n        empregado_locator_unico = page.locator(\n            f&amp;#x27;div.c-bXqUbA:has-text(&amp;quot;{nome_empregado}&amp;quot;):has(div.c-iYbcAK:has-text(&amp;quot;{cpf_empregado}&amp;quot;))&amp;#x27;\n        ).first\n    \n        try:\n            empregado_locator_unico.scroll_into_view_if_needed(timeout=10000)\n        except TimeoutError:\n            s_path = take_screenshot(page, f&amp;quot;12_NAO_VISIVEL_PARA_MENU_DOTS_teste04&amp;quot;, dados_empregado=employee_data_for_test)\n            if pytest_html and hasattr(request.node, &amp;#x27;extras&amp;#x27;): request.node.extras.append(pytest_html.extras.image(s_path))\n&amp;gt;           pytest.fail(f&amp;quot;FALHA (TESTE 04): Empregado &amp;#x27;{nome_empregado}&amp;#x27; n\u00e3o vis\u00edvel para interagir com o menu &amp;#x27;...&amp;#x27;.&amp;quot;)\nE           Failed: FALHA (TESTE 04): Empregado &amp;#x27;Carlos Testador QA&amp;#x27; n\u00e3o vis\u00edvel para interagir com o menu &amp;#x27;...&amp;#x27;.\n\ntests\\test_cadastro_empregado.py:238: Failed\n\n----------------------------- Captured stdout call -----------------------------\n\n--- TESTE 04: Tentativa de Exclus\u00e3o - Menu Ausente ---\n\ud83d\udcf8 Screenshot salva: C:\\Temp\\qa-projeto-sea\\tests\\screenshots\\12_NAO_VISIVEL_PARA_MENU_DOTS_teste04_Carlos_Testador_QA_20250524_135440.png\n--------------------------- Captured stdout teardown ---------------------------\n\n--- Iniciando limpeza de dados de teste (conftest.py) ---\nINFO: [LIMPEZA NO CONFTEST] Tentando limpar o cadastro de &amp;#x27;Carlos Testador QA&amp;#x27; (CPF: 777.888.999-00)...\nAVISO: [LIMPEZA NO CONFTEST] Falha ao excluir o cadastro &amp;#x27;Carlos Testador QA&amp;#x27; (CPF: 777.888.999-00): Locator.wait_for: Timeout 7000ms exceeded.\nCall log:\nwaiting for locator(&amp;quot;div.c-bXqUbA:has-text(\\&amp;quot;Carlos Testador QA\\&amp;quot;):has(div.c-iYbcAK:has-text(\\&amp;quot;777.888.999-00\\&amp;quot;))&amp;quot;).first.locator(&amp;quot;div.c-jyZWAy&amp;quot;) to be visible\n.\n--- Limpeza de dados de teste conclu\u00edda (conftest.py) ---\n&#34;}]}, &#34;renderCollapsed&#34;: [&#34;passed&#34;], &#34;initialSort&#34;: &#34;result&#34;, &#34;title&#34;: &#34;Relat\u00f3rio de Testes Automatizados - SEA Tecnologia (Customizado)&#34;}"></div>
     <script>
       (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const { getCollapsedCategory, setCollapsedIds } = require('./storage.js')
