@@ -10,6 +10,8 @@ Este repositório contém um projeto estruturado de testes para a aplicação di
 │   ├── plano-de-testes.md
 │   └── casos-de-teste.md
 ├── tests/
+|   ├── results/
+|   ├── screenshots/
 │   ├── test_conformidade.py
 │   └── test_validacao.py
 ├── utils/
@@ -72,8 +74,8 @@ pytest tests/
 
 Para gerar relatório HTML:
 ```bash
-pytest --html=report.html --css=assets/custom_style.css # ou
-pytest tests/ --headed --html=report.html --self-contained-html
+pytest tests/ --html=tests/results/report.html --css=assets/custom_style.css  # ou
+pytest tests/ --headed --html=tests/results/report.html --self-contained-html
 ```
 
 ## Documentação

@@ -94,8 +94,6 @@ def cleanup_after_all_tests(request):
 
 
 # --- HOOKS PARA pytest-html E SCREENSHOTS ---
-# (Seu hook pytest_runtest_makereport existente permanece em grande parte inalterado,
-# garanta que pytest_html esteja disponível para extras.image)
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     outcome = yield
@@ -105,7 +103,9 @@ def pytest_runtest_makereport(item, call):
     if rep.when == "call" and rep.failed:
         try:
             page = item.funcargs.get("page")
-            if page and pytest_html: # Verifica se pytest_html foi importado
+            # Alteração na condição:
+            # Se 'page' existir e 'pytest_html.extras' foi importado com sucesso, podemos prosseguir.
+            if page and pytest_html.extras:
                 base_screenshots_dir = os.path.join(str(item.fspath.dirpath()), "screenshots")
                 if not os.path.exists(base_screenshots_dir):
                     os.makedirs(base_screenshots_dir)
@@ -117,7 +117,9 @@ def pytest_runtest_makereport(item, call):
                 page.screenshot(path=screenshot_path_abs)
                 print(f"📸 Screenshot AUTOMÁTICA em falha salva: {screenshot_path_abs}")
 
-                if hasattr(item, 'extras') and hasattr(pytest_html, 'extras'): # Garante que o atributo e o módulo extras existam
+                # Adiciona ao html report.
+                # A verificação hasattr(item, 'extras') é importante.
+                if hasattr(item, 'extras'):
                     item.extras.append(pytest_html.extras.image(screenshot_path_abs, name="Screenshot Automático em Falha"))
         except Exception as e:
             print(f"AVISO: Não foi possível capturar screenshot automática em falha para {item.name}: {e}")
@@ -181,21 +183,17 @@ def pytest_sessionfinish(session, exitstatus):
 
 # Ajuste em pytest_html_results_summary:
 @pytest.hookimpl(optionalhook=True)
-def pytest_html_results_summary(prefix, summary, postfix): # Assinatura correta
-    # 1. Adicione o CDN do Chart.js
-    # Use a função 'raw' importada diretamente
-    prefix.append(raw("<script src='https://cdn.jsdelivr.net/npm/chart.js'></script>")) # <<MODIFICADO: html.raw -> raw>>
+def pytest_html_results_summary(prefix, summary, postfix):
+    # 1. Adicione o CDN do Chart.js - como um nó de script HTML
+    prefix.append(html.script(src="https://cdn.jsdelivr.net/npm/chart.js"))
 
-    # 2. Adicione um contêiner e um canvas para o gráfico
-    chart_container_html = """
-    <div class="chart-container">
-        <h3>Visão Geral dos Testes</h3>
-        <canvas id="testSummaryChart"></canvas>
-    </div>
-    """
-    prefix.append(raw(chart_container_html)) # <<MODIFICADO: html.raw -> raw>>
+    # 2. Adicione um contêiner e um canvas para o gráfico - construindo os elementos
+    chart_container_div = html.div(class_="chart-container")
+    chart_container_div.append(html.h3("Visão Geral dos Testes"))
+    chart_container_div.append(html.canvas(id="testSummaryChart"))
+    prefix.append(chart_container_div)
 
-    # 3. Recupere as estatísticas
+    # 3. Recupere as estatísticas (esta parte está correta)
     stats = getattr(pytest, 'my_report_stats_for_html', {})
     total = stats.get('total', 0)
     passed = stats.get('passed', 0)
@@ -203,8 +201,8 @@ def pytest_html_results_summary(prefix, summary, postfix): # Assinatura correta
     skipped = stats.get('skipped', 0)
 
     # 4. Adicione JavaScript para renderizar o gráfico
-    script_content_js = f"""
-        <script type="text/javascript">
+    # O conteúdo JS em si, sem as tags <script></script> externas
+    script_content_js_puro = f"""
             document.addEventListener('DOMContentLoaded', function() {{
                 const ctx = document.getElementById('testSummaryChart');
                 if (ctx && typeof Chart !== 'undefined') {{
@@ -246,31 +244,39 @@ def pytest_html_results_summary(prefix, summary, postfix): # Assinatura correta
                     if (typeof Chart === 'undefined') console.error('Chart.js não carregado.');
                 }}
             }});
-        </script>
     """
-    postfix.append(raw(script_content_js)) # <<MODIFICADO: html.raw -> raw>>
+    # Crie um nó de script HTML e adicione o conteúdo JS bruto dentro dele
+    chart_script_tag = html.script(type="text/javascript")
+    chart_script_tag.append(raw(script_content_js_puro)) # Use raw() para o conteúdo do script
+    postfix.append(chart_script_tag)
 
-    # Adicionando as estatísticas personalizadas
-    custom_stats_html_content = f"""
-    <div class="stats-container">
-        <div class="stat-item">
-            <h3>Total</h3>
-            <p>{total}</p>
-        </div>
-        <div class="stat-item">
-            <h3>Sucesso</h3>
-            <p style="color: green;">{passed}</p>
-        </div>
-        <div class="stat-item">
-            <h3>Falha</h3>
-            <p style="color: red;">{failed}</p>
-        </div>
-        <div class="stat-item">
-            <h3>Outros</h3>
-            <p>{skipped}</p>
-        </div>
-    </div>
-    """
-    prefix.append(raw(custom_stats_html_content)) # <<MODIFICADO: html.raw -> raw>>
+    # Adicionando as estatísticas personalizadas - construindo os elementos
+    stats_container_div = html.div(class_="stats-container")
+
+    total_div = html.div(class_="stat-item")
+    total_div.append(html.h3("Total"))
+    total_div.append(html.p(str(total))) # Conteúdo de <p> é string
+    stats_container_div.append(total_div)
+
+    passed_div = html.div(class_="stat-item")
+    passed_div.append(html.h3("Sucesso"))
+    passed_p = html.p(str(passed))
+    passed_p.attr.style = "color: green;" # Adicionando estilo ao <p>
+    passed_div.append(passed_p)
+    stats_container_div.append(passed_div)
+
+    failed_div = html.div(class_="stat-item")
+    failed_div.append(html.h3("Falha"))
+    failed_p = html.p(str(failed))
+    failed_p.attr.style = "color: red;" # Adicionando estilo ao <p>
+    failed_div.append(failed_p)
+    stats_container_div.append(failed_div)
+
+    skipped_div = html.div(class_="stat-item")
+    skipped_div.append(html.h3("Outros"))
+    skipped_div.append(html.p(str(skipped)))
+    stats_container_div.append(skipped_div)
+
+    prefix.append(stats_container_div)
 
 
