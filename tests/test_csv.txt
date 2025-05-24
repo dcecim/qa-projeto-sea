@@ -1,0 +1,38 @@
+import csv
+import os
+
+# Caminho do arquivo CSV
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+CSV_FILE = os.path.join(CURRENT_DIR, "dados_teste.csv")
+
+def test_read_csv_file(): # Nome de função de teste Pytest
+    print(f"Tentando ler o arquivo CSV em: {CSV_FILE}")
+    try:
+        with open(CSV_FILE, mode="r", encoding="utf-8") as file:
+            reader = csv.DictReader(file)
+            data = [row for row in reader] # Lê todos os dados
+            
+            # Imprime os dados lidos para depuração
+            print("Dados lidos do CSV:", data)
+
+            # Asserções para um teste Pytest
+            assert data, "O arquivo CSV está vazio ou não foi lido corretamente."
+            assert len(data) > 0, "Nenhum registro encontrado no CSV."
+            
+            # Opcional: verificar se as chaves esperadas estão presentes no primeiro registro
+            if data:
+                expected_keys = ["nome", "cpf", "rg", "cargo", "data_nascimento", "sexo", "epi"]
+                assert all(key in data[0] for key in expected_keys), "Colunas esperadas não encontradas no CSV."
+
+    except FileNotFoundError:
+        print(f"ERRO: Arquivo CSV não encontrado: {CSV_FILE}")
+        # Em um teste pytest, você usaria pytest.fail aqui para indicar falha
+        # pytest.fail(f"Erro: O arquivo CSV não foi encontrado em {CSV_FILE}")
+    except Exception as e:
+        print(f"ERRO ao ler o arquivo CSV: {e}")
+        # Em um teste pytest, você usaria pytest.fail aqui
+        # pytest.fail(f"Erro ao ler o arquivo CSV: {e}")
+
+# Se você quiser apenas executar este script fora do pytest para ver o print:
+if __name__ == "__main__":
+    test_read_csv_file()
