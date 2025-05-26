@@ -130,6 +130,10 @@
 ## 5. Detalhes dos Testes Bloqueados
 <p>Nenhum teste foi bloqueado.</p>
 
+## 6. Graficos gerados
+ [Resultado dos testes](reports_graphs/test_results_pie_chart.png) 
+ [Resultado por cenário](reports_graphs/tests_per_scenario_bar_chart.png.png) 
+ 
 ## 6. Conclusão e Recomendações
 # Considerações Finais e Recomendações
 

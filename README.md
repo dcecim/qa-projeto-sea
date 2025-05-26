@@ -82,6 +82,7 @@ pytest tests/ --headed --html=tests/results/report.html --self-contained-html
 
 - [Plano de Testes](docs/plano-de-testes.md): Estratégia, escopo e abordagem de testes
 - [Casos de Teste](docs/casos-de-teste.md): Casos de teste detalhados para execução manual
+- [Relatório de Teste](docs/relatorio_testes_gerado.md): Relatório detalhados sobre execução de teste com analise da situaçã
 
 ## Tecnologias Utilizadas
 
