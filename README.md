@@ -6,9 +6,17 @@ Este repositório contém um projeto estruturado de testes para a aplicação di
 
 ```
 /qa-projeto-sea/
+├── assets/
+│   ├── custom_style.css
+│   ├── style.css
 ├── docs/
 │   ├── plano-de-testes.md
 │   └── casos-de-teste.md
+├── reports_graphs/
+│   ├── test_results_pie_chart.png
+│   └── tests_per_scenario_bar_chart.png
+├── testes manuais/
+│   ├── evidências dos testes manuais.doc
 ├── tests/
 |   ├── results/
 |   ├── screenshots/
