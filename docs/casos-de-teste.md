@@ -296,6 +296,34 @@ Este documento contém os casos de teste manuais detalhados para a aplicação d
 
 **Prioridade:** Média
 
+### CT-FORM-007: Validação de Data - Cenários Inválidos
+
+**Objetivo:** Verificar se o campo de data rejeita entradas inválidas.
+
+**Pré-condições:**
+- Acesso à aplicação em http://analista-teste.seatecnologia.com.br/
+
+**Passos:**
+1. Acessar o formulário de cadastro de funcionário
+2. Inserir data futura (ex: 30/12/2030)
+3. Verificar rejeição
+4. Inserir data em formato inválido
+5. Verificar rejeição
+6. Inserir caracteres não numéricos
+7. Verificar rejeição
+8. Deixar o campo em branco
+9. Verificar rejeição
+
+**Resultado Esperado:**
+- Todas as datas inválidas devem ser rejeitadas com mensagens de erro apropriadas
+
+**Critérios de Aceitação:**
+- Mensagem de erro clara e específica
+- Impossibilidade de prosseguir com o formulário até correção
+- Foco mantido no campo com erro
+
+**Prioridade:** Média
+
 ## 3. Testes de Adição de EPI e Atividades
 
 ### CT-EPI-001: Adição de EPI

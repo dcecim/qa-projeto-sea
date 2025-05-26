@@ -1,0 +1,28 @@
+Cenário;Caso de Teste;Resultado
+Testes de Compatibilidade com Navegadores;CT-COMP-001: Compatibilidade com Google Chrome;Passou
+Testes de Compatibilidade com Navegadores;CT-COMP-002: Compatibilidade com Mozilla Firefox;Passou
+Testes de Compatibilidade com Navegadores;CT-COMP-003: Compatibilidade com Microsoft Edge;Passou
+Testes de Compatibilidade com Navegadores;CT-COMP-004: Compatibilidade com Dispositivos Móveis;Falhou
+Testes de Navegação;CT-NAV-001: Navegação entre Páginas;Falhou
+Testes de Navegação;"CT-NAV-002: Navegação para Componente ""Em Breve""";Falhou
+Testes de Navegação;CT-NAV-003: Navegação com Histórico do Navegador;Passou
+Testes de Edição e Exclusão de Registros;CT-EXCL-001: Exclusão de Funcionário;Falhou
+Testes de Edição e Exclusão de Registros;CT-EXCL-002: Cancelamento de Exclusão;Falhou
+Testes de Edição e Exclusão de Registros;CT-EDIT-001: Edição de Dados do Funcionário;Falhou
+Testes de Edição e Exclusão de Registros;CT-EDIT-002: Edição de EPIs e Atividades;Falhou
+Testes de Persistˆncia e Recuperação de Dados;CT-PERS-001: Persistˆncia de Dados do Funcionário;Passou
+Testes de Adição de EPI e Atividades;CT-ATIV-001: Adição de Atividades;Falhou
+Testes de Adição de EPI e Atividades;CT-ATIV-002: Remoção de Atividades;Falhou
+Testes de Adição de EPI e Atividades;CT-EPI-001: Adição de EPI;Falhou
+Testes de Adição de EPI e Atividades;CT-EPI-002: Remoção de EPI;Falhou
+Testes de Validação de Formulário;CT-FORM-001: Validação de Nome - Cenários Válidos;Passou
+Testes de Validação de Formulário;CT-FORM-002: Validação de Nome - Cenários Inválidos;Falhou
+Testes de Validação de Formulário;CT-FORM-003: Validação de CPF - Cenários Válidos;Passou
+Testes de Validação de Formulário;CT-FORM-004: Validação de CPF - Cenários Inválidos;Falhou
+Testes de Validação de Formulário;CT-FORM-005: Validação de Data - Cenários Válidos;Passou
+Testes de Validação de Formulário;CT-FORM-006: Validação de Data - Cenários Inválidos;Passou
+Testes de Validação de Formulário;CT-FORM-007: Validação de Data - Cenários Inválidos;Falhou
+Testes de Conformidade com o Protótipo;CT-CONF-001: Verificação de Fonte;Falhou
+Testes de Conformidade com o Protótipo;CT-CONF-002: Verificação de Cores;Falhou
+Testes de Conformidade com o Protótipo;CT-CONF-003: Verificação de Elementos de Interface;Falhou
+Testes de Conformidade com o Protótipo;CT-CONF-004: Verificação de Layout Responsivo;Falhou
