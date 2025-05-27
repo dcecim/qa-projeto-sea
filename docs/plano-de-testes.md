@@ -70,6 +70,7 @@ O escopo deste plano inclui testes manuais para todas as funcionalidades da apli
 - Plano de Testes (este documento)
 - Casos de Teste detalhados (`docs/casos-de-teste.md`)
 - Relatórios de Execução de Teste (`docs/relatorio_testes_gerado.md`)
+- Relatório de Teste Automatizado (`tests/results/report.html`):
 
 ### 5.2 Código
 - Scripts de automação para validação de nome/CPF

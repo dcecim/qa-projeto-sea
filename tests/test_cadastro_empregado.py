@@ -10,9 +10,21 @@ APP_URL = "http://analista-teste.seatecnologia.com.br/"
 BASE_SCREENSHOTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "screenshots")
 
 # Dados de teste para o fluxo 
-TEST_EMPLOYEE_DATA = {
-    "nome": "Ed Morte Semideus", # Nome bem único
-    "cpf": "003.888.999-00",      # CPF único e válido
+TEST_EMPLOYEE_DATA = {{
+    "nome": "DROP TABLE EMPREGADO;", # Nome bem único
+    "cpf": "103.888.999-00",      # CPF único e válido
+    "rg": "44.345.678-9",
+    "cargo": "Cargo 02", 
+    "data_nascimento": "1985-07-15",
+    "sexo": "masculino",
+    "epi": "sim",
+    "atividade": "Ativid 01", 
+    "ca_number": "", 
+    "epi_tipo": ""   
+},
+    {
+    "nome": "CREATE TABLE IF NOT EXISTS public.tbl_delivery_note;", # Nome bem único
+    "cpf": "203.888.999-00",      # CPF único e válido
     "rg": "44.345.678-9",
     "cargo": "Cargo 02", 
     "data_nascimento": "1985-07-15",
@@ -21,6 +33,7 @@ TEST_EMPLOYEE_DATA = {
     "atividade": "", 
     "ca_number": "", 
     "epi_tipo": ""   
+}
 }
 
 # --- Funções Auxiliares Comuns ---
